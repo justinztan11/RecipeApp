@@ -54,7 +54,11 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(coordinatorLayout,
                         "You selected settings", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-
+                return true;
+            case R.id.action_logout:
+                Snackbar.make(coordinatorLayout,
+                        "You selected logout", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
                 return true;
         }
 
