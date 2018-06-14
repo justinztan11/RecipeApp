@@ -1,67 +1,74 @@
 package com.recipe.recipeapp;
 
-import java.util.Collections;
-import java.util.Comparator;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
 public class RecipeManager implements RecipeManagerADT {
 
-    // list of recipe objects
-    List<Recipe> RecipeList;
+    // list of recipe names
+    List<String> recipeNames;
 
-    // maps recipe name/keyword to list of recipes
-    HashMap<String, List<Recipe>> RecipeData;
+    // maps recipe name to recipe object
+    HashMap<String, Recipe> recipeData;
 
     // given file path, populates both list and map with appropriate recipe data
     public RecipeManager(String filePath) {
+        //initialize instance vars
+        recipeNames = new ArrayList<String>();
+        recipeData = new HashMap<String, Recipe>();
+
+
+        //Grabbing recipes
+        //converting recipes
+
     }
 
-    @Override
-    public List<Recipe> getRecipe(String name) {
+    public List<String> findRecipe(Set<String> ingredients) {
         return null;
     }
-
+    
     @Override
     public String addRecipe(Recipe recipe) {
-        return null;
+        if (recipe == null) {
+            return null;
+        }
+
+        recipeNames.add(recipe.getName());
+        recipeData.put(recipe.getName(), recipe);
+
+        return recipe.getName();
     }
 
     @Override
     public String removeRecipe(Recipe recipe) {
-        return null;
+        if (recipe == null) {
+            return null;
+        }
+
+        recipeNames.remove(recipe.getName());
+        recipeData.remove(recipe.getName());
+
+        return recipe.getName();
     }
 
     @Override
     public boolean containsRecipe(Recipe recipe) {
-        return false;
-    }
-
-    @Override
-    public List<String> findRecipe(Set<String> ingredients) {
-        return null;
+        return recipeData.containsValue(recipe);
     }
 
     @Override
     public void sortRecipeRating() {
-        Collections.sort(RecipeList, new Comparator<Recipe>() {
-            @Override
-            public int compare(Recipe recipe1, Recipe recipe2){
-                // add code
-                return 0;
-            }
-        });
+
     }
 
     @Override
     public void sortRecipeReviews() {
-        Collections.sort(RecipeList, new Comparator<Recipe>() {
-            @Override
-            public int compare(Recipe recipe1, Recipe recipe2){
-                // add code
-                return 0;
-            }
-        });
+
     }
 }
