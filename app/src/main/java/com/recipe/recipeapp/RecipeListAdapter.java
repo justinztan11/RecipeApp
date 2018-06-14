@@ -25,8 +25,6 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe>{
     public RecipeListAdapter(@NonNull Context context, int resource, List<Recipe> objects) {
         super(context, resource, objects);
         recipeList = objects;
-
-
     }
 
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

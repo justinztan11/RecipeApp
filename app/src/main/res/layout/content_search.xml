@@ -27,11 +27,12 @@
         android:layout_marginTop="19dp"
         android:text="SEARCH" />
 
-    <ScrollView
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
-    </ScrollView>
+    </ListView>
 
 </RelativeLayout>
