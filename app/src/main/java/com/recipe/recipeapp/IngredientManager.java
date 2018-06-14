@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
+
 public class IngredientManager implements IngredientManagerADT{
 
-    SortedSet<String> ingredientList;
+    //SortedSet<String> ingredientList;
+    List<String> ingredientList;
 
     // given a filepath, populates list with ingredients from the file
     public IngredientManager(String filePath) {
@@ -19,13 +21,22 @@ public class IngredientManager implements IngredientManagerADT{
     }
 
     @Override
-    public String removeIngredient() {
+    public String removeIngredient()
+    {
+
         return null;
     }
 
     @Override
     public boolean containsIngredient() {
-        return false;
+
+        if(ingredientList.isEmpty())
+        {
+            return false;
+        }else
+        {
+            return true;
+        }
     }
 
 }
