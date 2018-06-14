@@ -8,8 +8,8 @@ public interface RecipeADT {
     // returns name
     public String getName();
 
-    // returns the image ID
-    public String getImageID();
+    // returns the image name
+    public String getImage();
 
     // returns ingredient list
     public List<String> getIngredients();

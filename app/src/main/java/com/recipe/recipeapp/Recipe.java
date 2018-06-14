@@ -6,15 +6,15 @@ import java.util.List;
 // Recipe with steps, ingredients, ratings, difficulty level, etc.
 public class Recipe implements RecipeADT{
     String name;
-    String imageID;
+    String image;
     List<String> ingredients;
     List<String> procedure;
     List<Review> reviews;
 
 
-    public Recipe(String name, String imageID, List<String> ingredients, List<String> procedure) {
+    public Recipe(String name, String image, List<String> ingredients, List<String> procedure) {
         this.name = name;
-        this.imageID = imageID;
+        this.image = image;
         this.ingredients = ingredients;
         this.procedure = procedure;
         this.reviews = new ArrayList<>();
@@ -26,8 +26,8 @@ public class Recipe implements RecipeADT{
     }
 
     @Override
-    public String getImageID() {
-        return imageID;
+    public String getImage() {
+        return image;
     }
 
     @Override
