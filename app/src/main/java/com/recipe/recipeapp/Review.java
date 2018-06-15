@@ -2,9 +2,9 @@ package com.recipe.recipeapp;
 
 public class Review implements ReviewADT{
 
-    String username;
-    String comment;
-    int rating;
+    private String username;
+    private String comment;
+    private int rating;
 
     // creates a review with comment, rating, and difficulty
     public Review(String username, String comment, int rating) {

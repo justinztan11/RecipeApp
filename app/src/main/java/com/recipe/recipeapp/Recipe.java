@@ -5,11 +5,11 @@ import java.util.List;
 
 // Recipe with steps, ingredients, ratings, difficulty level, etc.
 public class Recipe implements RecipeADT{
-    String name;
-    String image;
-    List<String> ingredients;
-    List<String> procedure;
-    List<Review> reviews;
+    private String name;
+    private String image;
+    private List<String> ingredients;
+    private List<String> procedure;
+    private List<Review> reviews;
 
 
     public Recipe(String name, String image, List<String> ingredients, List<String> procedure) {
