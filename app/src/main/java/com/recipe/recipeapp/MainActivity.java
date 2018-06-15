@@ -7,18 +7,15 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.Toast;
 
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private CoordinatorLayout coordinatorLayout;
-    private List<Recipe> recipeList = RecipeDatabase.recipeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
 
     }
 
@@ -72,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void searchMain() {
+    public void searchMain(View view) {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
     }

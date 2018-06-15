@@ -6,8 +6,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ListView;
+
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
+
+    private List<Recipe> recipeList = RecipeDatabase.recipeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,12 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        RecipeListAdapter adapter = new RecipeListAdapter(
+                this, R.layout.recipe_item, recipeList);
+        ListView lv = findViewById(R.id.listView);
+        lv.setAdapter(adapter);
     }
 
 }

@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/recipeName"
-            android:layout_width="174dp"
+            android:layout_width="165dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center_vertical"

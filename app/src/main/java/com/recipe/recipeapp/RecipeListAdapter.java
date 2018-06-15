@@ -27,7 +27,8 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe>{
         recipeList = objects;
     }
 
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext())
                     .inflate(R.layout.recipe_item, parent, false);
@@ -37,6 +38,6 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe>{
         TextView recipeName = convertView.findViewById(R.id.recipeName);
         recipeName.setText(recipe.getName());
 
-        return super.getView(position, convertView, parent);
+        return convertView;
     }
 }

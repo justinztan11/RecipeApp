@@ -18,11 +18,11 @@ public final class RecipeDatabase {
 
     // provides sample data
     static {
-        recipeList.add(new Recipe("macaroni", null , null, null ));
-        recipeList.add(new Recipe("burger", null , null, null ));
-        recipeList.add(new Recipe("pizza", null , null, null ));
-        recipeList.add(new Recipe("pie", null , null, null ));
-        recipeList.add(new Recipe("brownie", null , null, null ));
+        addRecipe(new Recipe("macaroni", null , null, null ));
+        addRecipe(new Recipe("burger", null , null, null ));
+        addRecipe(new Recipe("pizza", null , null, null ));
+        addRecipe(new Recipe("pie", null , null, null ));
+        addRecipe(new Recipe("brownie", null , null, null ));
     }
 
 //    // given file path, populates list appropriate recipe data
@@ -35,13 +35,13 @@ public final class RecipeDatabase {
         return null;
     }
 
-    // returns a list of recipes given name/keyword
-    public List<Recipe> getRecipe(String name) {
+    // returns the list of recipes
+    public static List<Recipe> getRecipe(String name) {
         return null;
     }
 
     // adds recipe to recipe database and returns the recipe name
-    public String addRecipe(Recipe recipe) {
+    public static String addRecipe(Recipe recipe) {
         if (recipe == null) {
             return null;
         }
@@ -51,7 +51,7 @@ public final class RecipeDatabase {
     }
 
     // removes recipe from recipe database and returns the recipe name
-    public String removeRecipe(Recipe recipe) {
+    public static String removeRecipe(Recipe recipe) {
         if (recipe == null) {
             return null;
         }
@@ -61,7 +61,7 @@ public final class RecipeDatabase {
     }
 
     // checks if recipe exists, returns true if it does, false otherwise
-    public boolean containsRecipe(Recipe recipe) {
+    public static boolean containsRecipe(Recipe recipe) {
         return recipeList.contains(recipe);
     }
 
