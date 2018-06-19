@@ -14,6 +14,7 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter; //populates recyclerview based on data
     private RecyclerView.LayoutManager layoutManager; //positions layout of page

@@ -1,6 +1,7 @@
 package com.recipe.recipeapp;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.CoordinatorLayout;
@@ -12,16 +13,26 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.recipe.recipeapp.Database.DataSource;
+import com.recipe.recipeapp.Database.DatabaseOpenHelper;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private CoordinatorLayout coordinatorLayout;
+    private DataSource mDataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
+
+        mDataSource = new DataSource(this);
+        mDataSource.open();
+
+        Snackbar.make(coordinatorLayout, "database created", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -35,6 +46,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mDataSource.close();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mDataSource.open();
     }
 
     @Override
