@@ -21,7 +21,7 @@ public class RecipeTable {
     public static final String FTS_VIRTUAL_TABLE = "FTS";
 
     public static final String FTS_TABLE_CREATE =
-            "CREATE VIRTUAL TABLE " + FTS_VIRTUAL_TABLE +
+            "CREATE VIRTUAL TABLE IF NOT EXISTS " + FTS_VIRTUAL_TABLE +
                     " USING fts3 (" +
                     COL_ID + "TEXT, " +
                     COL_NAME + "TEXT, " +
@@ -32,6 +32,6 @@ public class RecipeTable {
                     COL_IMAGE + "TEXT" + ")";
 
     public static final String FTS_TABLE_DELETE =
-            "DROP TABLE" + TABLE_ITEMS;
+            "DROP TABLE IF EXISTS " + FTS_VIRTUAL_TABLE;
 
 }

@@ -13,13 +13,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.recipe.recipeapp.Database.DataSource;
 import com.recipe.recipeapp.Database.DatabaseOpenHelper;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private CoordinatorLayout coordinatorLayout;
-    private SQLiteDatabase database;
+    private DataSource mDataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +28,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
 
-        DatabaseOpenHelper dbHelper = new DatabaseOpenHelper(this);
-        database = dbHelper.getWritableDatabase();
+        mDataSource = new DataSource(this);
+        mDataSource.open();
+
         Snackbar.make(coordinatorLayout, "database created", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
 
@@ -44,6 +46,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mDataSource.close();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mDataSource.open();
     }
 
     @Override
