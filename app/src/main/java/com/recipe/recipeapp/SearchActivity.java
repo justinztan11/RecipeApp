@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private List<Recipe> recipeList = RecipeDatabase.recipeList;
+    private List<Recipe> recipeList = RecipeData.recipeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

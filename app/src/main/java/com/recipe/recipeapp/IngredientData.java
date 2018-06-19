@@ -2,7 +2,7 @@ package com.recipe.recipeapp;
 
 import java.util.List;
 
-public final class IngredientDatabase {
+public final class IngredientData {
 
     //SortedSet<String> ingredientList;
     public static List<String> ingredientList;

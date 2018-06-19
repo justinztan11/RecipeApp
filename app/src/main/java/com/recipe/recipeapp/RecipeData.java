@@ -11,18 +11,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-public final class RecipeDatabase {
+public final class RecipeData {
 
     // list of recipe objects
     public static List<Recipe> recipeList = new ArrayList<Recipe>();
 
     // provides sample data
     static {
-        addRecipe(new Recipe("macaroni", null , null, null ));
-        addRecipe(new Recipe("burger", null , null, null ));
-        addRecipe(new Recipe("pizza", null , null, null ));
-        addRecipe(new Recipe("pie", null , null, null ));
-        addRecipe(new Recipe("brownie", null , null, null ));
+        addRecipe(new Recipe("mac1","macaroni", null , null, null, null, null ));
+        addRecipe(new Recipe("burg1","burger", null , null, null, null, null ));
+        addRecipe(new Recipe("pizz1","pizza", null , null, null, null, null ));
+        addRecipe(new Recipe("pie1","pie", null , null, null, null, null ));
+        addRecipe(new Recipe("brown1","brownie", null , null, null, null, null ));
     }
 
 //    // given file path, populates list appropriate recipe data
