@@ -18,7 +18,7 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter; //populates recyclerview based on data
     private RecyclerView.LayoutManager layoutManager; //positions layout of page
-    private List<Recipe> recipeList = RecipeDatabase.recipeList;
+    private List<Recipe> recipeList = RecipeData.recipeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
