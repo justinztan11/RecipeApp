@@ -16,15 +16,14 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/recipeImage"
                 android:layout_width="99dp"
                 android:layout_height="102dp"
-                android:layout_alignLeft="@+id/recipeName"
-                android:layout_alignStart="@+id/recipeName"
-                android:layout_below="@+id/recipeName"
+                android:layout_alignStart="@+id/recipe"
+                android:layout_below="@+id/recipe"
                 android:src="@drawable/mac_cheese" />
 
             <TextView
@@ -66,14 +65,11 @@
 
             <TextView
                 android:id="@+id/card_text"
-                android:layout_width="235dp"
+                android:layout_width="240dp"
                 android:layout_height="87dp"
-                android:layout_alignEnd="@+id/ratingBar"
-                android:layout_alignRight="@+id/ratingBar"
-                android:layout_alignTop="@+id/recipeImage"
-                android:layout_marginEnd="-37dp"
-                android:layout_marginRight="-37dp"
-                android:layout_marginTop="6dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="-5dp"
+                android:layout_toEndOf="@+id/recipe"
                 android:text="@string/mac_cheese_description" />
 
         </RelativeLayout>
