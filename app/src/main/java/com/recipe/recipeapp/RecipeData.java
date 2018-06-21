@@ -18,11 +18,20 @@ public final class RecipeData {
 
     // provides sample data
     static {
-        addRecipe(new Recipe("mac1","macaroni", null , null, null, null, null ));
-        addRecipe(new Recipe("burg1","burger", null , null, null, null, null ));
-        addRecipe(new Recipe("pizz1","pizza", null , null, null, null, null ));
-        addRecipe(new Recipe("pie1","pie", null , null, null, null, null ));
-        addRecipe(new Recipe("brown1","brownie", null , null, null, null, null ));
+        addRecipe(new Recipe("mac1","macaroni", null ,
+                null, 0.0, null, null, null ));
+
+        addRecipe(new Recipe("burg1","burger", null ,
+                null, 0.0, null, null, null ));
+
+        addRecipe(new Recipe("pizz1","pizza", null ,
+                null, 0.0, null, null, null ));
+
+        addRecipe(new Recipe("pie1","pie", null ,
+                null, 0.0, null, null, null ));
+
+        addRecipe(new Recipe("brown1","brownie", null ,
+                null, 0.0, null, null,null ));
     }
 
 //    // given file path, populates list appropriate recipe data

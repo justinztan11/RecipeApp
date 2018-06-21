@@ -12,10 +12,11 @@ public class RecipeTable {
     public static final String COL_ID = "recipeID";
     public static final String COL_NAME = "name";
     public static final String COL_DESCRIPTION = "description";
+    public static final String COL_IMAGE = "image";
     //public static final String COL_CATEGORY = "category";
     public static final String COL_RATING = "rating";
     //public static final String COL_REVIEW = "review";
-    public static final String COL_IMAGE = "image";
+
 
     public static final String FTS_VIRTUAL_TABLE = "FTS";
 

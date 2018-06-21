@@ -6,23 +6,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Recipe with steps, ingredients, ratings, difficulty level, etc.
-public class Recipe implements RecipeADT{
+public class Recipe implements RecipeADT {
     private String recipeID;
     private String name;
     private String description;
-    private List<String> category;
     private String image;
+    private double rating;
+    private List<String> category;
     private List<String> ingredients;
     private List<String> procedure;
     private List<Review> reviews;
 
 
-    public Recipe(String recipeID, String name, String description, List<String> category, String image, List<String> ingredients, List<String> procedure) {
+    public Recipe(String recipeID, String name, String description, String image, double rating, List<String> category,  List<String> ingredients, List<String> procedure) {
         this.recipeID = recipeID;
         this.name = name;
         this.description = description;
-        this.category = category;
         this.image = image;
+        this.rating = rating;
+        this.category = category;
         this.ingredients = ingredients;
         this.procedure = procedure;
         this.reviews = new ArrayList<>();
