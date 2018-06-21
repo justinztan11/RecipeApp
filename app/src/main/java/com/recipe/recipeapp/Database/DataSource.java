@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteQueryBuilder;
 
 import com.recipe.recipeapp.Recipe;
 
+import java.util.List;
+
 public class DataSource {
 
     private Context mContext;
@@ -30,8 +32,10 @@ public class DataSource {
         mDbHelper.close();
     }
 
-    public void loadData() {
-
+    public void loadData(List<Recipe> recipeList) {
+        for (Recipe recipe: recipeList) {
+            addWord(recipe);
+        }
     }
 
     public long addWord(Recipe recipe) {
