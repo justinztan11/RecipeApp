@@ -16,11 +16,10 @@ public class RecipeTable {
     public static final String COL_ID = "recipeID";
     public static final String COL_NAME = "name";
     public static final String COL_DESCRIPTION = "description";
-    public static final String COL_CATEGORY = "category";
+    //public static final String COL_CATEGORY = "category";
     public static final String COL_RATING = "rating";
-    public static final String COL_REVIEW = "review";
+    //public static final String COL_REVIEW = "review";
     public static final String COL_IMAGE = "image";
-
 
     public static final String FTS_VIRTUAL_TABLE = "FTS";
 
@@ -30,9 +29,9 @@ public class RecipeTable {
                     COL_ID + "TEXT, " +
                     COL_NAME + "TEXT, " +
                     COL_DESCRIPTION + "TEXT, " +
-                    COL_CATEGORY + "TEXT, " +
+                    //COL_CATEGORY + "LIST, " +
                     COL_RATING + "DOUBLE, " +
-                    COL_REVIEW + "LIST, " +
+                    //COL_REVIEW + "LIST, " +
                     COL_IMAGE + "TEXT" + ")";
 
     public static final String FTS_TABLE_DELETE =
