@@ -38,37 +38,4 @@ public class RecipeTable {
     public static final String FTS_TABLE_DELETE =
             "DROP TABLE IF EXISTS " + FTS_VIRTUAL_TABLE;
 
-    public Cursor getWordMatches(String query, String[] columns) {
-        String selection = COL_NAME + " MATCH ?";
-        String[] selectionArgs = new String[] {query+"*"};
-
-        return query(selection, selectionArgs, columns);
-    }
-
-    private Cursor query(String selection, String[] selectionArgs, String[] columns) {
-        SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-        builder.setTables(FTS_VIRTUAL_TABLE);
-
-        Cursor cursor = builder.query(mDatabaseOpenHelper.getReadableDatabase(),
-                columns, selection, selectionArgs, null, null, null);
-
-        if (cursor == null) {
-            return null;
-        } else if (!cursor.moveToFirst()) {
-            cursor.close();
-            return null;
-        }
-        return cursor;
-    }
-
-    RecipeTable db = new RecipeTable();
-    private void handleIntent(Intent intent) {
-
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            Cursor c = db.getWordMatches(query, null);
-            //process Cursor and display results
-        }
-    }
-
 }
