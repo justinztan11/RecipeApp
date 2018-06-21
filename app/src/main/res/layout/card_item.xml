@@ -22,12 +22,12 @@
                 android:id="@+id/recipeImage"
                 android:layout_width="99dp"
                 android:layout_height="102dp"
-                android:layout_alignStart="@+id/recipe"
-                android:layout_below="@+id/recipe"
+                android:layout_alignStart="@+id/card_text"
+                android:layout_below="@+id/card_text"
                 android:src="@drawable/mac_cheese" />
 
             <TextView
-                android:id="@+id/recipe"
+                android:id="@+id/card_text"
                 android:layout_width="115dp"
                 android:layout_height="35dp"
                 android:layout_alignParentLeft="true"
@@ -64,12 +64,12 @@
                 android:text="(90)" />
 
             <TextView
-                android:id="@+id/card_text"
+                android:id="@+id/description"
                 android:layout_width="240dp"
                 android:layout_height="87dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="-5dp"
-                android:layout_toEndOf="@+id/recipe"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/ratingNumber"
+                android:layout_marginEnd="15dp"
                 android:text="@string/mac_cheese_description" />
 
         </RelativeLayout>
