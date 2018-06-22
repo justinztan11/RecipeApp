@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         Snackbar.make(coordinatorLayout, "database created", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
 
-        //mDataSource.loadData(recipeList);
+        mDataSource.loadData(recipeList);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

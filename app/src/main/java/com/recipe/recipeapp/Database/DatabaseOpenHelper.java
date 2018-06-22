@@ -10,7 +10,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "RecipeDatabase";
     private static final String DATABASE_NAME = "DICTIONARY";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
 
     public DatabaseOpenHelper(Context context) {
@@ -20,7 +20,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(RecipeTable.FTS_TABLE_CREATE);
-        db.execSQL(RecipeTable.FTS_TABLE_INSERT);
+        //db.execSQL(RecipeTable.FTS_TABLE_INSERT);
     }
 
     @Override

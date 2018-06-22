@@ -21,17 +21,14 @@ public final class RecipeData {
         addRecipe(new Recipe("mac1","macaroni", "none" ,
                 "none", 0.0, null, null, null ));
 
-//        addRecipe(new Recipe("burg1","burger", null ,
-//                null, 0.0, null, null, null ));
-//
-//        addRecipe(new Recipe("pizz1","pizza", null ,
-//                null, 0.0, null, null, null ));
-//
-//        addRecipe(new Recipe("pie1","pie", null ,
-//                null, 0.0, null, null, null ));
-//
-//        addRecipe(new Recipe("brown1","brownie", null ,
-//                null, 0.0, null, null,null ));
+        addRecipe(new Recipe("burger1","burger", "none" ,
+                "none", 3.0, null, null, null ));
+        addRecipe(new Recipe("noodle1","noodle", "none" ,
+                "none", 3.5, null, null, null ));
+        addRecipe(new Recipe("mac2","macaroni", "none" ,
+                "none", 0.7, null, null, null ));
+        addRecipe(new Recipe("sandwich1","sandwhich", "none" ,
+                "none", 5.0, null, null, null ));
     }
 
 //    // given file path, populates list appropriate recipe data
