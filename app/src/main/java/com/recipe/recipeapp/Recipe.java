@@ -31,8 +31,8 @@ public class Recipe implements RecipeADT {
     }
 
     @Override
-    public String getItemID() {
-        return null;
+    public String getRecipeID() {
+        return recipeID;
     }
 
     @Override
@@ -42,12 +42,12 @@ public class Recipe implements RecipeADT {
 
     @Override
     public String getDescription() {
-        return null;
+        return description;
     }
 
     @Override
     public List<String> getCategory() {
-        return null;
+        return category;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Recipe implements RecipeADT {
 
     @Override
     public List<Review> getReviews() {
-        return null;
+        return reviews;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class Recipe implements RecipeADT {
 
     @Override
     public double getRating() {
-        return 0;
+        return rating;
     }
 
 

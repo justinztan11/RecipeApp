@@ -27,13 +27,14 @@ public class RecipeTable {
     public static final String FTS_TABLE_CREATE =
             "CREATE VIRTUAL TABLE IF NOT EXISTS " + FTS_VIRTUAL_TABLE +
                     " USING fts3 (" +
-                    COL_ID + "TEXT, " +
-                    COL_NAME + "TEXT, " +
-                    COL_DESCRIPTION + "TEXT, " +
+                    COL_ID + ", " +
+                    COL_NAME + ", " +
+                    COL_DESCRIPTION + ", " +
                     //COL_CATEGORY + "LIST, " +
-                    COL_RATING + "DOUBLE, " +
+                    COL_IMAGE + ", " +
+                    COL_RATING + ", " +
                     //COL_REVIEW + "LIST, " +
-                    COL_IMAGE + "TEXT" + ")";
+                     ")";
 
     public static final String FTS_TABLE_DELETE =
             "DROP TABLE IF EXISTS " + FTS_VIRTUAL_TABLE;

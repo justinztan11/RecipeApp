@@ -16,11 +16,14 @@ import android.view.MenuItem;
 import com.recipe.recipeapp.Database.DataSource;
 import com.recipe.recipeapp.Database.DatabaseOpenHelper;
 
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private CoordinatorLayout coordinatorLayout;
     private DataSource mDataSource;
+    private List<Recipe> recipeList = RecipeData.recipeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
         mDataSource = new DataSource(this);
         mDataSource.open();
-
         Snackbar.make(coordinatorLayout, "database created", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
+
+        mDataSource.loadData(recipeList);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -22,20 +22,24 @@
                 android:id="@+id/recipeImage"
                 android:layout_width="99dp"
                 android:layout_height="102dp"
-                android:layout_alignStart="@+id/card_text"
-                android:layout_below="@+id/card_text"
+                android:layout_alignLeft="@+id/recipeName"
+                android:layout_alignStart="@+id/recipeName"
+                android:layout_below="@+id/recipeName"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/mac_cheese" />
 
             <TextView
-                android:id="@+id/card_text"
-                android:layout_width="115dp"
+                android:id="@+id/recipeName"
+                android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="center"
                 android:layout_marginLeft="12dp"
+                android:layout_marginRight="-10dp"
                 android:layout_marginStart="12dp"
+                android:layout_toLeftOf="@id/ratingBar"
                 android:gravity="center_vertical"
                 android:text="Recipe Name"
                 android:textSize="17sp" />
@@ -46,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/ratingNumber"
+                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/ratingNumber"
                 android:layout_toStartOf="@+id/ratingNumber"
                 android:numStars="5"
@@ -59,8 +64,8 @@
                 android:layout_above="@+id/recipeImage"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginEnd="23dp"
-                android:layout_marginRight="23dp"
+                android:layout_marginEnd="11dp"
+                android:layout_marginRight="11dp"
                 android:text="(90)" />
 
             <TextView
@@ -68,8 +73,11 @@
                 android:layout_width="240dp"
                 android:layout_height="87dp"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_below="@+id/ratingNumber"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_toRightOf="@id/recipeImage"
                 android:text="@string/mac_cheese_description" />
 
         </RelativeLayout>

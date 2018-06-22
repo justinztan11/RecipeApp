@@ -6,7 +6,7 @@ import java.util.List;
 public interface RecipeADT {
 
     // returns unique itemID
-    public String getItemID();
+    public String getRecipeID();
 
     // returns name
     public String getName();

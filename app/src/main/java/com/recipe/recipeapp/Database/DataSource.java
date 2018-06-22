@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 
 import com.recipe.recipeapp.Recipe;
 
@@ -34,19 +36,29 @@ public class DataSource {
 
     public void loadData(List<Recipe> recipeList) {
         for (Recipe recipe: recipeList) {
-            addWord(recipe);
+            try {
+                addWord(recipe);
+                Log.d("OUTPUT", "loadData: " + recipe.getRecipeID() );
+                Log.d("OUTPUT", "loadData: " + recipe.getName() );
+                Log.d("OUTPUT", "loadData: " + recipe.getDescription());
+                Log.d("OUTPUT", "loadData: " + recipe.getImage() );
+                Log.d("OUTPUT", "loadData: " + recipe.getRating() );
+            } catch (SQLiteException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public long addWord(Recipe recipe) {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(RecipeTable.COL_ID, recipe.getItemID());
+
+        initialValues.put(RecipeTable.COL_ID, recipe.getRecipeID());
         initialValues.put(RecipeTable.COL_NAME, recipe.getName());
         initialValues.put(RecipeTable.COL_DESCRIPTION, recipe.getDescription());
         //initialValues.put(RecipeTable.COL_CATEGORY, recipe.getCategory());
+        initialValues.put(RecipeTable.COL_IMAGE, recipe.getImage());
         initialValues.put(RecipeTable.COL_RATING, recipe.getRating());
         //initialValues.put(RecipeTable.COL_REVIEW, recipe.getReviews());
-        initialValues.put(RecipeTable.COL_IMAGE, recipe.getImage());
 
         return mDatabase.insert(RecipeTable.FTS_VIRTUAL_TABLE, null, initialValues);
     }
