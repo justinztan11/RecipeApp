@@ -4,6 +4,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.recipe.recipeapp.RecipeData;
+
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "RecipeDatabase";
@@ -18,6 +20,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(RecipeTable.FTS_TABLE_CREATE);
+        db.execSQL(RecipeTable.FTS_TABLE_INSERT);
     }
 
     @Override

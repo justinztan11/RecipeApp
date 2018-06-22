@@ -38,6 +38,7 @@ public class DataSource {
         for (Recipe recipe: recipeList) {
             try {
                 addWord(recipe);
+
                 Log.d("OUTPUT", "loadData: " + recipe.getRecipeID() );
                 Log.d("OUTPUT", "loadData: " + recipe.getName() );
                 Log.d("OUTPUT", "loadData: " + recipe.getDescription());

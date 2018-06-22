@@ -39,4 +39,6 @@ public class RecipeTable {
     public static final String FTS_TABLE_DELETE =
             "DROP TABLE IF EXISTS " + FTS_VIRTUAL_TABLE;
 
+    public static final String FTS_TABLE_INSERT =
+            "INSERT INTO FTS VALUES('ID', 'MAC', 'NO DESCRIPTION', 'NO IMGE', 6.0)";
 }
