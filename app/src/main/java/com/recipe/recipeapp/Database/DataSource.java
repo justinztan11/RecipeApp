@@ -51,7 +51,7 @@ public class DataSource {
     }
 
     public long addWord(Recipe recipe) {
-        ContentValues initialValues = new ContentValues();
+        ContentValues initialValues = new ContentValues(5);
 
         initialValues.put(RecipeTable.COL_ID, recipe.getRecipeID());
         initialValues.put(RecipeTable.COL_NAME, recipe.getName());

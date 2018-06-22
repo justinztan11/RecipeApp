@@ -11,8 +11,10 @@ import android.util.Log;
 
 public class RecipeTable {
 
+    // table name
+    public static final String FTS_VIRTUAL_TABLE = "FTS";
+
     //The columns we'll include in the table
-    public static final String TABLE_ITEMS = "items";
     public static final String COL_ID = "recipeID";
     public static final String COL_NAME = "name";
     public static final String COL_DESCRIPTION = "description";
@@ -20,9 +22,6 @@ public class RecipeTable {
     //public static final String COL_CATEGORY = "category";
     public static final String COL_RATING = "rating";
     //public static final String COL_REVIEW = "review";
-
-
-    public static final String FTS_VIRTUAL_TABLE = "FTS";
 
     public static final String FTS_TABLE_CREATE =
             "CREATE VIRTUAL TABLE IF NOT EXISTS " + FTS_VIRTUAL_TABLE +
@@ -40,5 +39,13 @@ public class RecipeTable {
             "DROP TABLE IF EXISTS " + FTS_VIRTUAL_TABLE;
 
     public static final String FTS_TABLE_INSERT =
-            "INSERT INTO FTS VALUES('ID', 'MAC', 'NO DESCRIPTION', 'NO IMGE', 6.0)";
+            "INSERT INTO FTS(" +
+                    COL_ID + ", " +
+                    COL_NAME + ", " +
+                    COL_DESCRIPTION + ", " +
+                    //COL_CATEGORY + "LIST, " +
+                    COL_IMAGE + ", " +
+                    COL_RATING + ") " +
+                    "VALUES('ID', 'MAC', 'NO DESCRIPTION', 'NO IMGE', 6.0)";
+
 }
