@@ -31,7 +31,7 @@ public class RecipeTable {
                     COL_DESCRIPTION + " TEXT, " +
                     //COL_CATEGORY + " LIST, " +
                     COL_IMAGE + " TEXT, " +
-                    COL_RATING + " DOUBLE" +
+                    COL_RATING + " DOUBLE`" +
                     //COL_REVIEW + "LIST, " +
                      ")";
 

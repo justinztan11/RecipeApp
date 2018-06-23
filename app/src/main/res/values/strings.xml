@@ -6,4 +6,6 @@
     <string name="mac_cheese_description">Baked macaroni and cheese is
         rich and delicious, and this is one of our most-requested recipes.
         So step up to the stove and step away with a dish full of this mac ’n’ </string>
+    <string name="search_hint">search recipe</string>
+
 </resources>
