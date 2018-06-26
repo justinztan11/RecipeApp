@@ -4,6 +4,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 // Recipe with steps, ingredients, ratings, difficulty level, etc.
 public class Recipe implements RecipeADT {
@@ -19,6 +20,11 @@ public class Recipe implements RecipeADT {
 
 
     public Recipe(String recipeID, String name, String description, String image, double rating, List<String> category,  List<String> ingredients, List<String> procedure) {
+
+        if (recipeID == null) {
+            recipeID = UUID.randomUUID().toString();
+        }
+
         this.recipeID = recipeID;
         this.name = name;
         this.description = description;

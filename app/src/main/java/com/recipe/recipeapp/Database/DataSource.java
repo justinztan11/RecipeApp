@@ -50,7 +50,7 @@ public class DataSource {
         }
     }
 
-    public long addWord(Recipe recipe) {
+    public void addWord(Recipe recipe) {
         ContentValues initialValues = new ContentValues(5);
 
         initialValues.put(RecipeTable.COL_ID, recipe.getRecipeID());
@@ -61,7 +61,11 @@ public class DataSource {
         initialValues.put(RecipeTable.COL_RATING, recipe.getRating());
         //initialValues.put(RecipeTable.COL_REVIEW, recipe.getReviews());
 
-        return mDatabase.insert(RecipeTable.FTS_VIRTUAL_TABLE, null, initialValues);
+        mDatabase.insert(RecipeTable.FTS_VIRTUAL_TABLE, null, initialValues);
+    }
+
+    public void deleteAll() {
+        mDatabase.delete(RecipeTable.FTS_VIRTUAL_TABLE, null, null);
     }
 
     public Cursor getWordMatches(String query, String[] columns) {
@@ -86,6 +90,8 @@ public class DataSource {
         }
         return cursor;
     }
+
+
 }
 
 

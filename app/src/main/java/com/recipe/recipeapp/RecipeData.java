@@ -18,16 +18,16 @@ public final class RecipeData {
 
     // provides sample data
     static {
-        addRecipe(new Recipe("mac1","macaroni", "none" ,
+        addRecipe(new Recipe(null,"macaroni", "none" ,
                 "none", 0.0, null, null, null ));
 
-        addRecipe(new Recipe("burger1","burger", "none" ,
+        addRecipe(new Recipe(null,"burger", "none" ,
                 "none", 3.0, null, null, null ));
-        addRecipe(new Recipe("noodle1","noodle", "none" ,
+        addRecipe(new Recipe(null,"noodle", "none" ,
                 "none", 3.5, null, null, null ));
-        addRecipe(new Recipe("mac2","macaroni", "none" ,
+        addRecipe(new Recipe(null,"macaroni", "none" ,
                 "none", 0.7, null, null, null ));
-        addRecipe(new Recipe("sandwich1","sandwhich", "none" ,
+        addRecipe(new Recipe(null,"sandwhich", "none" ,
                 "none", 5.0, null, null, null ));
     }
 
