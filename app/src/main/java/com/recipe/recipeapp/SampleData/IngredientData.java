@@ -1,4 +1,4 @@
-package com.recipe.recipeapp;
+package com.recipe.recipeapp.SampleData;
 
 import java.util.List;
 

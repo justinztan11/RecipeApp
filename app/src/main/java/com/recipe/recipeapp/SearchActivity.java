@@ -8,7 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ListView;
+
+import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
+import com.recipe.recipeapp.Objects.Recipe;
+import com.recipe.recipeapp.SampleData.RecipeData;
 
 import java.util.List;
 

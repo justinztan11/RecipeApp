@@ -4,8 +4,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.recipe.recipeapp.RecipeData;
-
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "RecipeDatabase";

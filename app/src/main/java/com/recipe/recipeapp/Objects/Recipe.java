@@ -1,13 +1,11 @@
-package com.recipe.recipeapp;
-
-import android.widget.ListView;
+package com.recipe.recipeapp.Objects;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 // Recipe with steps, ingredients, ratings, difficulty level, etc.
-public class Recipe implements RecipeADT {
+public class Recipe {
     private String recipeID;
     private String name;
     private String description;
@@ -18,6 +16,10 @@ public class Recipe implements RecipeADT {
     private List<String> procedure;
     private List<Review> reviews;
 
+
+    public Recipe() {
+        this(null, null, null, null, 0.0, null, null, null);
+    }
 
     public Recipe(String recipeID, String name, String description, String image, double rating, List<String> category,  List<String> ingredients, List<String> procedure) {
 
@@ -36,60 +38,88 @@ public class Recipe implements RecipeADT {
         this.reviews = new ArrayList<>();
     }
 
-    @Override
     public String getRecipeID() {
         return recipeID;
     }
 
-    @Override
+    public void setRecipeID(String recipeID) {
+        this.recipeID = recipeID;
+    }
+
     public String getName() {
         return name;
     }
 
-    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    @Override
-    public List<String> getCategory() {
-        return category;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    @Override
     public String getImage() {
         return image;
     }
 
-    @Override
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public List<String> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<String> category) {
+        this.category = category;
+    }
+
     public List<String> getIngredients() {
         return ingredients;
     }
 
-    @Override
+    public void setIngredients(List<String> ingredients) {
+        this.ingredients = ingredients;
+    }
+
     public List<String> getProcedure() {
         return procedure;
     }
 
-    @Override
+    public void setProcedure(List<String> procedure) {
+        this.procedure = procedure;
+    }
+
     public List<Review> getReviews() {
         return reviews;
     }
 
-    @Override
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     public String addReview(Review review) {
-        return null;
+        reviews.add(review);
+        return review.getUsername();
     }
 
-    @Override
-    public Review removeReview(String username) {
-        return null;
+    public Review removeReview(int index) {
+        return reviews.remove(index);
     }
 
-    @Override
-    public double getRating() {
-        return rating;
-    }
+
 
 
 }

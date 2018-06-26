@@ -1,4 +1,4 @@
-package com.recipe.recipeapp;
+package com.recipe.recipeapp.Adapter;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.recipe.recipeapp.R;
 
 public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAdapter.ViewHolder> {
     private String[] data;

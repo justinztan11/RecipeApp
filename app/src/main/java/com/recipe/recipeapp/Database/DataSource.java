@@ -1,17 +1,15 @@
 package com.recipe.recipeapp.Database;
 
-import android.app.SearchManager;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
-import android.util.Log;
 
-import com.recipe.recipeapp.Recipe;
+import com.recipe.recipeapp.Objects.Recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataSource {
@@ -39,11 +37,11 @@ public class DataSource {
             try {
                 addWord(recipe);
 
-                Log.d("OUTPUT", "loadData: " + recipe.getRecipeID() );
-                Log.d("OUTPUT", "loadData: " + recipe.getName() );
-                Log.d("OUTPUT", "loadData: " + recipe.getDescription());
-                Log.d("OUTPUT", "loadData: " + recipe.getImage() );
-                Log.d("OUTPUT", "loadData: " + recipe.getRating() );
+//                Log.d("OUTPUT", "loadData: " + recipe.getRecipeID() );
+//                Log.d("OUTPUT", "loadData: " + recipe.getName() );
+//                Log.d("OUTPUT", "loadData: " + recipe.getDescription());
+//                Log.d("OUTPUT", "loadData: " + recipe.getImage() );
+//                Log.d("OUTPUT", "loadData: " + recipe.getRating() );
             } catch (SQLiteException e) {
                 e.printStackTrace();
             }
@@ -66,6 +64,24 @@ public class DataSource {
 
     public void deleteAll() {
         mDatabase.delete(RecipeTable.FTS_VIRTUAL_TABLE, null, null);
+    }
+
+    public List<Recipe> getAll() {
+        List<Recipe> recipeList = new ArrayList<>();
+        Cursor cursor = mDatabase.query(RecipeTable.FTS_VIRTUAL_TABLE, RecipeTable.ALL_COL,
+                null, null, null, null, null);
+
+        while(cursor.moveToNext()) {
+            Recipe recipe = new Recipe();
+            recipe.setRecipeID(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_ID)));
+            recipe.setName(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_NAME)));
+            recipe.setDescription(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_DESCRIPTION)));
+            recipe.setImage(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_IMAGE)));
+            recipe.setRating(cursor.getDouble(cursor.getColumnIndex(RecipeTable.COL_RATING)));
+            recipeList.add(recipe);
+        }
+
+        return recipeList;
     }
 
     public Cursor getWordMatches(String query, String[] columns) {
