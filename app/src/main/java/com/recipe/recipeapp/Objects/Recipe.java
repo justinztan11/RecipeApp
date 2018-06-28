@@ -10,18 +10,19 @@ public class Recipe {
     private String name;
     private String description;
     private String image;
-    private double rating;
+    private float rating;
     private List<String> category;
     private List<String> ingredients;
     private List<String> procedure;
     private List<Review> reviews;
 
+    public Recipe(String name) {this.name = name;}
 
     public Recipe() {
-        this(null, null, null, null, 0.0, null, null, null);
+        this(null, null, null, null, 0, null, null, null);
     }
 
-    public Recipe(String recipeID, String name, String description, String image, double rating, List<String> category,  List<String> ingredients, List<String> procedure) {
+    public Recipe(String recipeID, String name, String description, String image, float rating, List<String> category,  List<String> ingredients, List<String> procedure) {
 
         if (recipeID == null) {
             recipeID = UUID.randomUUID().toString();
@@ -70,11 +71,15 @@ public class Recipe {
         this.image = image;
     }
 
-    public double getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public int getReviewCount() {
+        return reviews.size();
+    }
+
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
