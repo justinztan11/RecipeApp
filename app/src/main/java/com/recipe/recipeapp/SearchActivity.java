@@ -1,5 +1,8 @@
 package com.recipe.recipeapp;
 
+import android.app.SearchManager;
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -30,31 +33,34 @@ public class SearchActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView =  (RecyclerView)findViewById(R.id.recycleView);
-
         String[] data = {"Card 1 ... desciption", "Card 2", "Card 3"};
         RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(data);
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-
         recyclerView.setAdapter(adapter);
 
+        handleIntent(getIntent());
         //RecipeListAdapter adapter = new RecipeListAdapter(
         //        this, R.layout.recipe_item, recipeList);
         //ListView lv = findViewById(R.id.listView);
         //lv.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            Cursor c = MainActivity.mDataSource.getWordMatches(query, null);
+            //use the query to search your data somehow
+        }
     }
 
 }
