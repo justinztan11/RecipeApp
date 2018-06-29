@@ -5,29 +5,39 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.recipe.recipeapp.Objects.Recipe;
 import com.recipe.recipeapp.R;
 
 public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAdapter.ViewHolder> {
-    private String[] data;
+    private Recipe[] data;
 
     //provides reference to views for each data object
     public static class ViewHolder extends RecyclerView.ViewHolder {
         //all elements of one list entry
-        public TextView text;
+        public TextView name;
+        public TextView ratingNumber;
+        public RatingBar ratingBar;
+        public TextView description;
         public CardView card;
+        public ImageView image;
 
         //gets all elements of entry and stores them in instance vars
         public ViewHolder(View v) {
             super(v);
-            text = v.findViewById(R.id.recipeName);
+            name = v.findViewById(R.id.recipeName);
+            description = v.findViewById(R.id.description);
+            ratingNumber = v.findViewById(R.id.ratingNumber);
+            ratingBar = v.findViewById(R.id.ratingBar);
             card = v.findViewById(R.id.card_view);
         }
     }
 
     //stores set of data (for now strings)
-    public RecipeRecyclerAdapter(String[] data) {
+    public RecipeRecyclerAdapter(Recipe[] data) {
         this.data = data;
     }
 
@@ -47,7 +57,11 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.text.setText(data[position]);
+        holder.name.setText(data[position].getName());
+        holder.description.setText(data[position].getDescription());
+        //holder.ratingNumber.setText(data[position].getReviewCount());
+        holder.ratingNumber.setText("(" + Integer.toString(data[position].getReviewCount()) + ")");
+        holder.ratingBar.setRating(data[position].getRating());
     }
 
     /*

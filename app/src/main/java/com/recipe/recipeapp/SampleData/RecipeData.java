@@ -15,17 +15,9 @@ public final class RecipeData {
 
     // provides sample data
     static {
-        addRecipe(new Recipe(null,"macaroni", "none" ,
-                "none", 0.0, null, null, null ));
-
-        addRecipe(new Recipe(null,"burger", "none" ,
-                "none", 3.0, null, null, null ));
-        addRecipe(new Recipe(null,"noodle", "none" ,
-                "none", 3.5, null, null, null ));
-        addRecipe(new Recipe(null,"macaroni", "none" ,
-                "none", 0.7, null, null, null ));
-        addRecipe(new Recipe(null,"sandwhich", "none" ,
-                "none", 5.0, null, null, null ));
+        addRecipe(new Recipe("a", "mac and cheese", "cheesy and maccy", null, 2.5f, null, null, null));
+        addRecipe(new Recipe("b", "hot dog", "a sausage in a bun", null, 1.3f, null, null, null));
+        addRecipe(new Recipe("c", "pizza", "why arent you a fatty", null, 2.1f, null, null, null));
     }
 
 //    // given file path, populates list appropriate recipe data
