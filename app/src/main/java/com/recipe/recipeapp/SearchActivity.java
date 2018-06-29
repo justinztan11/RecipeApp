@@ -36,7 +36,12 @@ public class SearchActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView =  (RecyclerView)findViewById(R.id.recycleView);
-        String[] data = {"Card 1 ... desciption", "Card 2", "Card 3"};
+
+        Recipe recipe1 = new Recipe("a", "mac and cheese", "cheesy and maccy", null, 2.5f, null, null, null);
+        Recipe recipe2 = new Recipe("b", "hot dog", "a sausage in a bun", null, 1.3f, null, null, null);
+        Recipe recipe3 = new Recipe("c", "pizza", "why arent you a fatty", null, 2.1f, null, null, null);
+
+        Recipe[] data = {recipe1, recipe2, recipe3};
         RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(data);
 
         layoutManager = new LinearLayoutManager(this);
