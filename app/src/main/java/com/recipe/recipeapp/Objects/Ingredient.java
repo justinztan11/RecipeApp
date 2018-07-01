@@ -1,6 +1,5 @@
 package com.recipe.recipeapp.Objects;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class Ingredient {
