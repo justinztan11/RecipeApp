@@ -12,8 +12,10 @@ import android.widget.TextView;
 import com.recipe.recipeapp.Objects.Recipe;
 import com.recipe.recipeapp.R;
 
+import java.util.List;
+
 public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAdapter.ViewHolder> {
-    private Recipe[] data;
+    private List<Recipe> recipeList;
 
     //provides reference to views for each data object
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -37,8 +39,8 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
     }
 
     //stores set of data (for now strings)
-    public RecipeRecyclerAdapter(Recipe[] data) {
-        this.data = data;
+    public RecipeRecyclerAdapter(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
     }
 
     /*
@@ -57,11 +59,11 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.name.setText(data[position].getName());
-        holder.description.setText(data[position].getDescription());
+        holder.name.setText(recipeList.get(position).getName());
+        holder.description.setText(recipeList.get(position).getDescription());
         //holder.ratingNumber.setText(data[position].getReviewCount());
-        holder.ratingNumber.setText("(" + Integer.toString(data[position].getReviewCount()) + ")");
-        holder.ratingBar.setRating(data[position].getRating());
+        holder.ratingNumber.setText("(" + Integer.toString(recipeList.get(position).getReviewCount()) + ")");
+        holder.ratingBar.setRating(recipeList.get(position).getRating());
     }
 
     /*
@@ -69,6 +71,6 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
      */
     @Override
     public int getItemCount() {
-        return data.length;
+        return recipeList.size();
     }
 }

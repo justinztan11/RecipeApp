@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 
 import com.recipe.recipeapp.Objects.Recipe;
 
@@ -36,12 +37,11 @@ public class DataSource {
         for (Recipe recipe: recipeList) {
             try {
                 addWord(recipe);
-
-//                Log.d("OUTPUT", "loadData: " + recipe.getRecipeID() );
-//                Log.d("OUTPUT", "loadData: " + recipe.getName() );
-//                Log.d("OUTPUT", "loadData: " + recipe.getDescription());
-//                Log.d("OUTPUT", "loadData: " + recipe.getImage() );
-//                Log.d("OUTPUT", "loadData: " + recipe.getRating() );
+                Log.d("OUTPUT", "loadData: " + recipe.getRecipeID() );
+                Log.d("OUTPUT", "loadData: " + recipe.getName() );
+                Log.d("OUTPUT", "loadData: " + recipe.getDescription());
+                Log.d("OUTPUT", "loadData: " + recipe.getImage() );
+                Log.d("OUTPUT", "loadData: " + recipe.getRating() );
             } catch (SQLiteException e) {
                 e.printStackTrace();
             }
@@ -80,6 +80,8 @@ public class DataSource {
             recipe.setRating(cursor.getFloat(cursor.getColumnIndex(RecipeTable.COL_RATING)));
             recipeList.add(recipe);
         }
+
+        cursor.close();
 
         return recipeList;
     }

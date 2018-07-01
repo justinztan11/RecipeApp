@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".SearchActivity"
-    tools:showIn="@layout/activity_search">
+    tools:context=".AllDataActivity"
+    tools:showIn="@layout/activity_all_data">
 
     <EditText
         android:id="@+id/findText"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/searchButton"
-        android:layout_toLeftOf="@+id/searchButton" />
+        android:layout_alignBaseline="@id/allRecipeButton"
+        android:layout_toLeftOf="@+id/allRecipeButton" />
 
     <Button
-        android:id="@+id/searchButton"
+        android:id="@+id/allRecipeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -31,8 +31,9 @@
         android:id="@+id/recycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/searchButton"
+        android:layout_below="@id/allRecipeButton"
         android:layout_marginTop="5dp"/>
+
 
 
 </RelativeLayout>

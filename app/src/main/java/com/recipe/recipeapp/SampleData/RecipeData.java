@@ -15,9 +15,12 @@ public final class RecipeData {
 
     // provides sample data
     static {
-        addRecipe(new Recipe("a", "mac and cheese", "cheesy and maccy", null, 2.5f, null, null, null));
-        addRecipe(new Recipe("b", "hot dog", "a sausage in a bun", null, 1.3f, null, null, null));
-        addRecipe(new Recipe("c", "pizza", "why arent you a fatty", null, 2.1f, null, null, null));
+        addRecipe(new Recipe(null, "mac and cheese", "cheesy and maccy",
+                null, 2.5f, null, null, null));
+        addRecipe(new Recipe(null, "hot dog", "a sausage in a bun",
+                null, 1.3f, null, null, null));
+        addRecipe(new Recipe(null, "pizza", "why arent you a fatty",
+                null, 2.1f, null, null, null));
     }
 
 //    // given file path, populates list appropriate recipe data
