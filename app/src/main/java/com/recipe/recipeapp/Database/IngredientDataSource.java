@@ -77,7 +77,6 @@ public class IngredientDataSource {
             recipe.setName(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_NAME)));
             recipe.setDescription(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_DESCRIPTION)));
             recipe.setImage(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_IMAGE)));
-            recipe.setRating(cursor.getDouble(cursor.getColumnIndex(RecipeTable.COL_RATING)));
             recipeList.add(recipe);
         }
 
