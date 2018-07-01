@@ -137,10 +137,9 @@ public class MainActivity extends AppCompatActivity {
                     recipe.setRating(cursor.getFloat(cursor.getColumnIndex(RecipeTable.COL_RATING)));
                     tempList.add(recipe);
                     Log.d("searchOutput", "Search Output: " + recipe.getName());
+                    // breaking out of loop stops the repeating of items, bug may be here
+                    // break;
                 }
-
-                Log.d("searchOutputList", "Search Output: " + tempList.get(0).getName());
-
 
             }
 
