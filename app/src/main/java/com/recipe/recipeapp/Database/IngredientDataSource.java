@@ -16,11 +16,11 @@ public class IngredientDataSource {
 
     private Context mContext;
     SQLiteDatabase mDatabase;
-    DatabaseOpenHelper mDbHelper;
+    IngredientDatabaseOpenHelper mDbHelper;
 
     public IngredientDataSource(Context context) {
         this.mContext = context;
-        mDbHelper = new DatabaseOpenHelper(mContext);
+        mDbHelper = new IngredientDatabaseOpenHelper(mContext);
         mDatabase = mDbHelper.getWritableDatabase();
     }
 
@@ -49,10 +49,10 @@ public class IngredientDataSource {
     }
 
     public void addWord(Ingredient ingredient) {
-        ContentValues initialValues = new ContentValues(5);
+        ContentValues initialValues = new ContentValues(2);
 
         initialValues.put(IngredientTable.COL_ID, ingredient.getIngredientID());
-        initialValues.put(RecipeTable.COL_NAME, ingredient.getName());
+        initialValues.put(IngredientTable.COL_NAME, ingredient.getName());
 
         mDatabase.insert(IngredientTable.FTS_VIRTUAL_TABLE, null, initialValues);
     }
