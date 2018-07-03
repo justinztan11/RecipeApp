@@ -133,10 +133,12 @@ public class MainActivity extends AppCompatActivity {
         List<Recipe> tempList = new ArrayList<>();
 
         Log.d("handleIntent", "got intent");
+        Log.d("count", "cursor count: " + cursor.getCount());
 
         if (cursor != null) {
             try {
-                while (cursor.moveToNext()) {
+                // cursor starts at index 0, needs to execute below block only once before moving
+                do {
                     Recipe recipe = new Recipe();
                     recipe.setRecipeID(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_ID)));
                     recipe.setName(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_NAME)));
@@ -145,7 +147,9 @@ public class MainActivity extends AppCompatActivity {
                     recipe.setRating(cursor.getFloat(cursor.getColumnIndex(RecipeTable.COL_RATING)));
                     tempList.add(recipe);
                     Log.d("searchOutput", "Search Output: " + recipe.getName());
-                }
+
+                } while (cursor.moveToNext());
+
             } finally {
                 cursor.close();
             }
