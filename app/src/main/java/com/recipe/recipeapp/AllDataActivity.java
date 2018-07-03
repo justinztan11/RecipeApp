@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
 import com.recipe.recipeapp.Objects.Recipe;
-import com.recipe.recipeapp.SampleData.RecipeData;
+import com.recipe.recipeapp.Sample_Data.RecipeData;
 
 import java.util.List;
 
