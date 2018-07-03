@@ -1,4 +1,4 @@
-package com.recipe.recipeapp.Database;
+package com.recipe.recipeapp.Database_Ingredient;
 
 public class IngredientTable {
 

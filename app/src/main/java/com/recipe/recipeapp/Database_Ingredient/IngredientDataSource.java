@@ -1,4 +1,4 @@
-package com.recipe.recipeapp.Database;
+package com.recipe.recipeapp.Database_Ingredient;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
 
+import com.recipe.recipeapp.Database_Recipe.DatabaseOpenHelper;
+import com.recipe.recipeapp.Database_Recipe.RecipeTable;
 import com.recipe.recipeapp.Objects.Ingredient;
 
 import java.util.ArrayList;

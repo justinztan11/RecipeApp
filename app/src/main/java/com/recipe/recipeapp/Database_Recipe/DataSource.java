@@ -1,8 +1,9 @@
-package com.recipe.recipeapp.Database;
+package com.recipe.recipeapp.Database_Recipe;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
@@ -16,8 +17,8 @@ import java.util.List;
 public class DataSource {
 
     private Context mContext;
-    SQLiteDatabase mDatabase;
-    DatabaseOpenHelper mDbHelper;
+    private SQLiteDatabase mDatabase;
+    private DatabaseOpenHelper mDbHelper;
 
     public DataSource(Context context) {
         this.mContext = context;
@@ -99,7 +100,7 @@ public class DataSource {
 
         Cursor cursor = builder.query(mDbHelper.getReadableDatabase(),
                 columns, selection, selectionArgs, null, null, null);
-
+        
         if (cursor == null) {
             return null;
         } else if (!cursor.moveToFirst()) {
@@ -107,6 +108,10 @@ public class DataSource {
             return null;
         }
         return cursor;
+    }
+
+    public long getDataItemsCount() {
+        return DatabaseUtils.queryNumEntries(mDatabase, RecipeTable.FTS_VIRTUAL_TABLE);
     }
 
 

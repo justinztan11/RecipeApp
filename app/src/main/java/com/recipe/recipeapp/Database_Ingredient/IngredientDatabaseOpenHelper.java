@@ -1,23 +1,23 @@
-package com.recipe.recipeapp.Database;
+package com.recipe.recipeapp.Database_Ingredient;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class DatabaseOpenHelper extends SQLiteOpenHelper {
+public class IngredientDatabaseOpenHelper extends SQLiteOpenHelper {
 
-    public static final String TAG = "RecipeDatabase";
+    public static final String TAG = "IngredientDatabase";
     private static final String DATABASE_NAME = "DICTIONARY";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
 
-    public DatabaseOpenHelper(Context context) {
+    public IngredientDatabaseOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(RecipeTable.FTS_TABLE_CREATE);
+        db.execSQL(IngredientTable.FTS_TABLE_CREATE);
         //db.execSQL(RecipeTable.FTS_TABLE_INSERT);
     }
 
@@ -25,7 +25,7 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                 + newVersion + ", which will destroy all old data");
-        db.execSQL(RecipeTable.FTS_TABLE_DELETE);
+        db.execSQL(IngredientTable.FTS_TABLE_DELETE);
         onCreate(db);
     }
 }
