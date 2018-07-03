@@ -88,8 +88,9 @@ public class DataSource {
     }
 
     public Cursor getWordMatches(String query, String[] columns) {
-        String selection = RecipeTable.COL_NAME + " MATCH ?";
-        String[] selectionArgs = new String[]{query + "*"};
+        String selection = RecipeTable.FTS_VIRTUAL_TABLE + " MATCH ?";
+        String[] selectionArgs = new String[]{RecipeTable.COL_NAME + ":" + query + "* OR "
+                + RecipeTable.COL_DESCRIPTION + ":" + query + "*"};
 
         return query(selection, selectionArgs, columns);
     }
