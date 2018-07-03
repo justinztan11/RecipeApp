@@ -7,7 +7,7 @@ import android.util.Log;
 public class IngredientDatabaseOpenHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "IngredientDatabase";
-    private static final String DATABASE_NAME = "DICTIONARY";
+    private static final String DATABASE_NAME = "INGREDIENTS";
     private static final int DATABASE_VERSION = 1;
 
 
@@ -18,7 +18,7 @@ public class IngredientDatabaseOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(IngredientTable.FTS_TABLE_CREATE);
-        //db.execSQL(RecipeTable.FTS_TABLE_INSERT);
+        //db.execSQL(IngredientTable.FTS_TABLE_INSERT);
     }
 
     @Override

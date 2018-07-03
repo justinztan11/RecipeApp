@@ -6,7 +6,7 @@ public class IngredientTable {
     public static final String FTS_VIRTUAL_TABLE = "FTS";
 
     //The columns in the table
-    public static final String COL_ID = "recipeID";
+    public static final String COL_ID = "IngredientID";
     public static final String COL_NAME = "name";
 
     public static final String[] ALL_COL =

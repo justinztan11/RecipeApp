@@ -63,7 +63,7 @@ public class IngredientDataSource {
 
     public List<Ingredient> getAll() {
         List<Ingredient> ingredientList = new ArrayList<>();
-        Cursor cursor = mDatabase.query(RecipeTable.FTS_VIRTUAL_TABLE, RecipeTable.ALL_COL,
+        Cursor cursor = mDatabase.query(IngredientTable.FTS_VIRTUAL_TABLE, IngredientTable.ALL_COL,
                 null, null, null, null, null);
 
         while(cursor.moveToNext()) {
