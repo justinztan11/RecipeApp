@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
     private List<Recipe> recipeList = RecipeData.recipeList;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter; //populates recyclerview based on data
+    //private RecyclerView.Adapter adapter; //populates recyclerview based on data
     private RecyclerView.LayoutManager layoutManager; //positions layout of page
 
     @Override
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         //populate database
         mDataSource.loadData(recipeList);
 
-        recyclerView =  (RecyclerView)findViewById(R.id.recycleView);
+        recyclerView = (RecyclerView) findViewById(R.id.recycleView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
+       // setIntent(intent);
         handleIntent(intent);
     }
 
@@ -123,12 +124,19 @@ public class MainActivity extends AppCompatActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Cursor cursor = mDataSource.getWordMatches(query, null);
 
-            Log.d("handleIntent", "entered intent");
+            RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(getResultsList(cursor));
+            recyclerView.setAdapter(adapter);
+        }
+    }
 
-            List<Recipe> tempList = new ArrayList<>();
+    public List<Recipe> getResultsList(Cursor cursor) {
+        List<Recipe> tempList = new ArrayList<>();
 
-            if (cursor != null) {
-                while(cursor.moveToNext()) {
+        Log.d("handleIntent", "got intent");
+
+        if (cursor != null) {
+            try {
+                while (cursor.moveToNext()) {
                     Recipe recipe = new Recipe();
                     recipe.setRecipeID(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_ID)));
                     recipe.setName(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_NAME)));
@@ -137,20 +145,25 @@ public class MainActivity extends AppCompatActivity {
                     recipe.setRating(cursor.getFloat(cursor.getColumnIndex(RecipeTable.COL_RATING)));
                     tempList.add(recipe);
                     Log.d("searchOutput", "Search Output: " + recipe.getName());
-                    // breaking out of loop stops the repeating of items, bug may be here
-                    // break;
                 }
-
+            } finally {
+                cursor.close();
             }
-
-            RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(tempList);
-            recyclerView.setAdapter(adapter);
         }
+
+        // print output from cursor
+        String result = "";
+        for (Recipe recipe : tempList) {
+            result += recipe.getName() + " ";
+        }
+        Log.d("listOutput", "Cursor List: " + result);
+
+        return tempList;
     }
 
-    public void toAllRecipe(View view) {
-        Intent intent = new Intent(this, AllDataActivity.class);
-        startActivity(intent);
-    }
+    public void toAllRecipe (View view){
+            Intent intent = new Intent(this, AllDataActivity.class);
+            startActivity(intent);
+        }
 
-}
+    }
