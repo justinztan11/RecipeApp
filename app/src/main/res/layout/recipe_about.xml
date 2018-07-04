@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/recipeImage"
+        android:id="@+id/recipe_image"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
@@ -15,25 +15,25 @@
         android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/recipeImage" />
+        android:layout_below="@id/recipe_image" />
 
     <ListView
-        android:id="@+id/ingredientList"
+        android:id="@+id/ingredient_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/description" />
 
     <ListView
-        android:id="@+id/procedureList"
+        android:id="@+id/procedure_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ingredientList" />
+        android:layout_below="@+id/ingredient_list" />
 
     <ListView
-        android:id="@+id/reviewList"
+        android:id="@+id/review_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/procedureList" />
+        android:layout_below="@id/procedure_list" />
 
 
 </RelativeLayout>

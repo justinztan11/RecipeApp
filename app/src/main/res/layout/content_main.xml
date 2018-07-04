@@ -9,7 +9,7 @@
     tools:showIn="@layout/app_bar_main">
 
     <Button
-        android:id="@+id/allRecipeButton"
+        android:id="@+id/all_recipe_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -19,10 +19,10 @@
         android:text="All RECIPES" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleView"
+        android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/allRecipeButton"
+        android:layout_below="@id/all_recipe_button"
         android:layout_marginTop="5dp" />
 
 

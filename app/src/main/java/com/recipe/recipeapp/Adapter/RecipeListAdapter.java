@@ -37,7 +37,7 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe>{
         }
 
         Recipe recipe = recipeList.get(position);
-        TextView recipeName = convertView.findViewById(R.id.recipeName);
+        TextView recipeName = convertView.findViewById(R.id.recipe_name);
         recipeName.setText(recipe.getName());
 
 

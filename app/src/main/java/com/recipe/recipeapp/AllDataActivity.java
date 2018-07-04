@@ -30,7 +30,7 @@ public class AllDataActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        recyclerView =  (RecyclerView)findViewById(R.id.recycleView);
+        recyclerView =  (RecyclerView)findViewById(R.id.recycle_view);
 
         RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(recipeList);
 //        RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(MainActivity.mDataSource.getAll());
