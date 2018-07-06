@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
 import com.recipe.recipeapp.Database_Recipe.DataSource;
@@ -132,20 +133,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-//
-//        int id = item.getItemId();
-//
-//        switch (id) {
-//            case R.id.action_settings:
-//                Snackbar.make(coordinatorLayout,
-//                        "You selected settings", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//                return true;
-//            case R.id.action_logout:
-//                Snackbar.make(coordinatorLayout,
-//                        "You selected logout", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//                return true;
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -180,6 +168,10 @@ public class MainActivity extends AppCompatActivity
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Cursor cursor = mDataSource.getWordMatches(query, null);
+
+            int matches = (cursor == null) ? 0 : cursor.getCount();
+            TextView matchCount = findViewById(R.id.match_count);
+            matchCount.setText("Recipe App,  " + matches + " recipes");
 
             List<Recipe> resultsList = getResultsList(cursor);
             RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(resultsList);
