@@ -30,10 +30,10 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
         //gets all elements of entry and stores them in instance vars
         public ViewHolder(View v) {
             super(v);
-            name = v.findViewById(R.id.recipeName);
+            name = v.findViewById(R.id.recipe_name);
             description = v.findViewById(R.id.description);
-            ratingNumber = v.findViewById(R.id.ratingNumber);
-            ratingBar = v.findViewById(R.id.ratingBar);
+            ratingNumber = v.findViewById(R.id.rating_number);
+            ratingBar = v.findViewById(R.id.rating_bar);
             card = v.findViewById(R.id.card_view);
         }
     }

@@ -1,46 +1,29 @@
 package com.recipe.recipeapp;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SearchView;
-
-import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
-import com.recipe.recipeapp.Database_Recipe.DataSource;
-import com.recipe.recipeapp.Database_Recipe.RecipeTable;
-import com.recipe.recipeapp.Objects.Recipe;
-import com.recipe.recipeapp.Sample_Data.RecipeData;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DataSource mDataSource;
     private CoordinatorLayout coordinatorLayout;
-    private List<Recipe> recipeList = RecipeData.recipeList;
-    private RecyclerView recyclerView;
-    //private RecyclerView.Adapter adapter; //populates recyclerview based on data
-    private RecyclerView.LayoutManager layoutManager; //positions layout of page
-
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,39 +44,19 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // creating and opening database
-        mDataSource = new DataSource(this);
-        mDataSource.open();
-        Snackbar.make(coordinatorLayout, "database created", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // delete all items in database
-        //mDataSource.deleteAll();
-        //populate database
-        long numItems = mDataSource.getDataItemsCount();
-        if (numItems == 0) {
-            mDataSource.loadData(recipeList);
-        }
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycleView);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
-        // handle ACTION_SEARCH intent
-        handleIntent(getIntent());
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mDataSource.close();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mDataSource.open();
     }
 
     @Override
@@ -110,13 +73,8 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_options, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        // Associate searchable configuration with the SearchView
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setIconifiedByDefault(false);
         return true;
     }
 
@@ -128,25 +86,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
+            Intent intent = new Intent(this, SearchActivity.class);
+            this.startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-//
-//        int id = item.getItemId();
-//
-//        switch (id) {
-//            case R.id.action_settings:
-//                Snackbar.make(coordinatorLayout,
-//                        "You selected settings", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//                return true;
-//            case R.id.action_logout:
-//                Snackbar.make(coordinatorLayout,
-//                        "You selected logout", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//                return true;
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -155,17 +102,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.my_recipe) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.category) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.setting) {
 
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 
@@ -174,64 +117,45 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-        setIntent(intent);
-        handleIntent(intent);
-    }
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    private void handleIntent(Intent intent) {
-
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            Cursor cursor = mDataSource.getWordMatches(query, null);
-
-            List<Recipe> resultsList = getResultsList(cursor);
-            RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(resultsList);
-            recyclerView.setAdapter(adapter);
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
         }
-    }
 
-    public List<Recipe> getResultsList(Cursor cursor) {
-
-        List<Recipe> tempList = new ArrayList<>();
-
-        //Log.d("handleIntent", "got intent");
-        //Log.d("count", "cursor count: " + cursor.getCount());
-
-        if (cursor != null) {
-            try {
-                // cursor starts at index 0, needs to execute below block only once before moving
-                do {
-                    Recipe recipe = new Recipe();
-                    recipe.setRecipeID(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_ID)));
-                    recipe.setName(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_NAME)));
-                    recipe.setDescription(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_DESCRIPTION)));
-                    recipe.setImage(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_IMAGE)));
-                    recipe.setRating(cursor.getFloat(cursor.getColumnIndex(RecipeTable.COL_RATING)));
-                    tempList.add(recipe);
-                    Log.d("searchOutput", "Search Output: " + recipe.getName());
-
-                } while (cursor.moveToNext());
-
-            } finally {
-                cursor.close();
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    Tab1Featured tab1 = new Tab1Featured();
+                    return tab1;
+                case 1:
+                    Tab2IngredientSearch tab2 = new Tab2IngredientSearch();
+                    return tab2;
+                case 2:
+                    Tab3AllRecipes tab3 = new Tab3AllRecipes();
+                    return tab3;
+                default:
+                    return null;
             }
         }
 
-        // print output from cursor
-//        String result = "";
-//        for (Recipe recipe : tempList) {
-//            result += recipe.getName() + " ";
-//        }
-//        Log.d("listOutput", "Cursor List: " + result);
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 3;
+        }
 
-        return tempList;
     }
 
-    public void toAllRecipe(View view) {
-        Intent intent = new Intent(this, AllDataActivity.class);
-        startActivity(intent);
-    }
+//    public void toSomeRecipe(View view) {
+//        Intent intent = new Intent(this, SomeActivity.class);
+//        startActivity(intent);
+//    }
+
 
 }
