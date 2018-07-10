@@ -139,6 +139,9 @@ public class MainActivity extends AppCompatActivity
                 case 2:
                     Tab3AllRecipes tab3 = new Tab3AllRecipes();
                     return tab3;
+                case 3:
+                    Tab4AddIngredient tab4 = new Tab4AddIngredient();
+                    return tab4;
                 default:
                     return null;
             }
