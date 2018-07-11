@@ -11,11 +11,12 @@ public class RecipeTable {
     public static final String COL_DESCRIPTION = "description";
     public static final String COL_IMAGE = "image";
     public static final String COL_RATING = "rating";
+    public static final String COL_INGREDIENTID = "ingredientID";
     //public static final String COL_CATEGORY = "category";
     //public static final String COL_REVIEW = "review";
 
     public static final String[] ALL_COL =
-            {COL_ID, COL_NAME, COL_DESCRIPTION, COL_IMAGE, COL_RATING};
+            {COL_ID, COL_NAME, COL_DESCRIPTION, COL_IMAGE, COL_RATING,COL_INGREDIENTID};
 
     public static final String FTS_TABLE_CREATE =
             "CREATE VIRTUAL TABLE IF NOT EXISTS " + FTS_VIRTUAL_TABLE +
@@ -26,6 +27,7 @@ public class RecipeTable {
                     //COL_CATEGORY + " LIST, " +
                     COL_IMAGE + " TEXT, " +
                     COL_RATING + " DOUBLE" +
+                    COL_INGREDIENTID + "TEXT" +
                     //COL_REVIEW + "LIST, " +
                      ")";
 

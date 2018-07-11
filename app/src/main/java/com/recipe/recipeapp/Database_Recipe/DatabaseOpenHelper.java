@@ -1,8 +1,11 @@
 package com.recipe.recipeapp.Database_Recipe;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.recipe.recipeapp.Database_Ingredient.IngredientTable;
 
 public class DatabaseOpenHelper extends SQLiteOpenHelper {
 
@@ -28,6 +31,17 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         db.execSQL(RecipeTable.FTS_TABLE_DELETE);
         onCreate(db);
     }
+
+    SQLiteDatabase db;
+
+    String rawQuery = "SELECT * FROM " + RecipeTable.FTS_VIRTUAL_TABLE + " INNER JOIN " + IngredientTable.FTS_VIRTUAL_TABLE
+            + " ON " + RecipeTable.COL_INGREDIENTID + " = " + IngredientTable.COL_ID
+            + " WHERE " + IngredientTable.COL_ID + " = " +  "id";
+    Cursor c = db.rawQuery(
+            rawQuery,
+            null
+    );
+
 }
 
 
