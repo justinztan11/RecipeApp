@@ -15,17 +15,17 @@ public final class RecipeData {
 
     // provides sample data
     static {
-        addRecipe(new Recipe(null, "mac and cheese", "cheesy and maccy",
+        addRecipe(new Recipe("mac", "mac and cheese", "cheesy and maccy",
                 null, 2.5f, null, null, null));
-        addRecipe(new Recipe(null, "hot dog", "a sausage in a bun",
+        addRecipe(new Recipe("dog", "hot dog", "a sausage in a bun",
                 null, 1.3f, null, null, null));
-        addRecipe(new Recipe(null, "pepperoni pizza", "why arent you a fatty",
+        addRecipe(new Recipe("pizzaP", "pepperoni pizza", "why arent you a fatty",
                 null, 2.1f, null, null, null));
-        addRecipe(new Recipe(null, "cheese pizza", "meaty and cheesy",
+        addRecipe(new Recipe("pizzaC", "cheese pizza", "meaty and cheesy",
                 null, 3.1f, null, null, null));
-        addRecipe(new Recipe(null, "big mac", "better than BK",
+        addRecipe(new Recipe("MCD", "big mac", "better than BK",
                 null, 5.0f, null, null, null));
-        addRecipe(new Recipe(null, "the dog lover", "don't worry, not dog",
+        addRecipe(new Recipe("dog", "the dog lover", "don't worry, not dog",
                 null, 1.2f, null, null, null));
 
     }

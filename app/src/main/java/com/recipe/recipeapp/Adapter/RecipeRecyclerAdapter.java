@@ -1,5 +1,7 @@
 package com.recipe.recipeapp.Adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,14 +10,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.recipe.recipeapp.DetailsActivity;
 import com.recipe.recipeapp.Objects.Recipe;
 import com.recipe.recipeapp.R;
 
 import java.util.List;
 
 public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAdapter.ViewHolder> {
+    public static final String ITEM_ID_KEY = "item_id";
     private List<Recipe> recipeList;
+    private Context c;
 
     //provides reference to views for each data object
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -39,8 +45,9 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
     }
 
     //stores set of data (for now strings)
-    public RecipeRecyclerAdapter(List<Recipe> recipeList) {
+    public RecipeRecyclerAdapter(Context context, List<Recipe> recipeList) {
         this.recipeList = recipeList;
+        this.c = context;
     }
 
     /*
@@ -64,6 +71,17 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
         //holder.ratingNumber.setText(data[position].getReviewCount());
         holder.ratingNumber.setText("(" + Integer.toString(recipeList.get(position).getReviewCount()) + ")");
         holder.ratingBar.setRating(recipeList.get(position).getRating());
+
+        final String recipeID = recipeList.get(position).getRecipeID();
+
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(c, DetailsActivity.class);
+                intent.putExtra(ITEM_ID_KEY, recipeID);
+                c.startActivity(intent);
+            }
+        });
     }
 
     /*

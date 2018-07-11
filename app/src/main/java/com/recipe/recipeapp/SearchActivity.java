@@ -128,7 +128,7 @@ public class SearchActivity extends AppCompatActivity {
             matchCount.setText("Recipe App,  " + matches + " recipes");
 
             List<Recipe> resultsList = getResultsList(cursor);
-            RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(resultsList);
+            RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(this, resultsList);
             recyclerView.setAdapter(adapter);
         }
     }

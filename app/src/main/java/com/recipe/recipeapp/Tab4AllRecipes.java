@@ -27,7 +27,7 @@ public class Tab4AllRecipes extends Fragment {
         View rootView = inflater.inflate(R.layout.tab4_all_recipes, container, false);
         recyclerView = rootView.findViewById(R.id.recycle_view);
 
-        RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(recipeList);
+        RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(getActivity(), recipeList);
 //        RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(MainActivity.mDataSource.getAll());
 
         layoutManager = new LinearLayoutManager(getContext());
