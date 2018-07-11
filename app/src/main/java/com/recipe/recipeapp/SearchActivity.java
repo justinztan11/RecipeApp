@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +17,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
-import com.recipe.recipeapp.Database_Recipe.DataSource;
+import com.recipe.recipeapp.Database_Recipe.RecipeDataSource;
 import com.recipe.recipeapp.Database_Recipe.RecipeTable;
 import com.recipe.recipeapp.Objects.Recipe;
 import com.recipe.recipeapp.Sample_Data.RecipeData;
@@ -28,7 +27,7 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private DataSource mDataSource;
+    private RecipeDataSource mDataSource;
     private CoordinatorLayout coordinatorLayout;
     private List<Recipe> recipeList = RecipeData.recipeList;
     private RecyclerView recyclerView;
@@ -48,7 +47,7 @@ public class SearchActivity extends AppCompatActivity {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator2);
 
         // creating and opening database
-        mDataSource = new DataSource(this);
+        mDataSource = new RecipeDataSource(this);
         mDataSource.open();
 //        Snackbar.make(coordinatorLayout, "database created", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show();
@@ -122,7 +121,7 @@ public class SearchActivity extends AppCompatActivity {
 
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            Cursor cursor = mDataSource.getWordMatches(query, null);
+            Cursor cursor = mDataSource.getRecipeMatches(query, null);
 
             int matches = (cursor == null) ? 0 : cursor.getCount();
             TextView matchCount = findViewById(R.id.match_count);

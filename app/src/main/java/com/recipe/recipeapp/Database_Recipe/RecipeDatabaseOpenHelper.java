@@ -7,14 +7,14 @@ import android.util.Log;
 
 import com.recipe.recipeapp.Database_Ingredient.IngredientTable;
 
-public class DatabaseOpenHelper extends SQLiteOpenHelper {
+public class RecipeDatabaseOpenHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "RecipeDatabase";
     private static final String DATABASE_NAME = "DICTIONARY";
     private static final int DATABASE_VERSION = 2;
 
 
-    public DatabaseOpenHelper(Context context) {
+    public RecipeDatabaseOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
     }
@@ -32,15 +32,12 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    SQLiteDatabase db;
-
-    String rawQuery = "SELECT * FROM " + RecipeTable.FTS_VIRTUAL_TABLE + " INNER JOIN " + IngredientTable.FTS_VIRTUAL_TABLE
-            + " ON " + RecipeTable.COL_INGREDIENTID + " = " + IngredientTable.COL_ID
-            + " WHERE " + IngredientTable.COL_ID + " = " +  "id";
-    Cursor c = db.rawQuery(
-            rawQuery,
-            null
-    );
+//    SQLiteDatabase db;
+//
+//    String rawQuery = "SELECT * FROM " + RecipeTable.FTS_VIRTUAL_TABLE + " INNER JOIN " + IngredientTable.FTS_VIRTUAL_TABLE
+//            + " ON " + RecipeTable.COL_INGREDIENTID + " = " + IngredientTable.COL_ID
+//            + " WHERE " + IngredientTable.COL_ID + " = " +  "id";
+//    Cursor c = db.rawQuery(rawQuery,null);
 
 }
 

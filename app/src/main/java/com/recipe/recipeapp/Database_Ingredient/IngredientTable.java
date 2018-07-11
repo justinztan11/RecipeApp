@@ -22,14 +22,4 @@ public class IngredientTable {
     public static final String FTS_TABLE_DELETE =
             "DROP TABLE IF EXISTS " + FTS_VIRTUAL_TABLE;
 
-//    public static final String FTS_TABLE_INSERT_SAMPLE =
-//            "INSERT INTO FTS(" +
-//                    COL_ID + " TEXT PRIMARY KEY, " +
-//                    COL_NAME + " TEXT, " +
-//                    COL_DESCRIPTION + " TEXT, " +
-//                    //COL_CATEGORY + "LIST, " +
-//                    COL_IMAGE + " TEXT, " +
-//                    COL_RATING + " DOUBLE) " +
-//                    "VALUES('ID', 'MAC', 'NO DESCRIPTION', 'NO IMGE', 6.0)";
-
 }
