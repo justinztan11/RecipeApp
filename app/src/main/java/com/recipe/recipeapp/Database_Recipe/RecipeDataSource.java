@@ -14,15 +14,15 @@ import com.recipe.recipeapp.Objects.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataSource {
+public class RecipeDataSource {
 
     private Context mContext;
     private SQLiteDatabase mDatabase;
-    private DatabaseOpenHelper mDbHelper;
+    private RecipeDatabaseOpenHelper mDbHelper;
 
-    public DataSource(Context context) {
+    public RecipeDataSource(Context context) {
         this.mContext = context;
-        mDbHelper = new DatabaseOpenHelper(mContext);
+        mDbHelper = new RecipeDatabaseOpenHelper(mContext);
         mDatabase = mDbHelper.getWritableDatabase();
     }
 
@@ -37,7 +37,7 @@ public class DataSource {
     public void loadData(List<Recipe> recipeList) {
         for (Recipe recipe: recipeList) {
             try {
-                addWord(recipe);
+                addRecipe(recipe);
                 Log.d("OUTPUT", "loadData: " + recipe.getRecipeID() );
                 Log.d("OUTPUT", "loadData: " + recipe.getName() );
                 Log.d("OUTPUT", "loadData: " + recipe.getDescription());
@@ -49,7 +49,7 @@ public class DataSource {
         }
     }
 
-    public void addWord(Recipe recipe) {
+    public void addRecipe(Recipe recipe) {
         ContentValues initialValues = new ContentValues(5);
 
         initialValues.put(RecipeTable.COL_ID, recipe.getRecipeID());
@@ -87,7 +87,7 @@ public class DataSource {
         return recipeList;
     }
 
-    public Cursor getWordMatches(String query, String[] columns) {
+    public Cursor getRecipeMatches(String query, String[] columns) {
         String selection = RecipeTable.FTS_VIRTUAL_TABLE + " MATCH ?";
         String[] selectionArgs = new String[]{RecipeTable.COL_NAME + ":" + query + "* OR "
                 + RecipeTable.COL_DESCRIPTION + ":" + query + "*"};

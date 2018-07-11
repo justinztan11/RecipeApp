@@ -36,20 +36,14 @@ public class IngredientDataSource {
     public void loadData(List<Ingredient> ingredientList) {
         for (Ingredient ingredient: ingredientList) {
             try {
-                addWord(ingredient);
-
-//                Log.d("OUTPUT", "loadData: " + recipe.getRecipeID() );
-//                Log.d("OUTPUT", "loadData: " + recipe.getName() );
-//                Log.d("OUTPUT", "loadData: " + recipe.getDescription());
-//                Log.d("OUTPUT", "loadData: " + recipe.getImage() );
-//                Log.d("OUTPUT", "loadData: " + recipe.getRating() );
+                addIngredient(ingredient);
             } catch (SQLiteException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void addWord(Ingredient ingredient) {
+    public void addIngredient(Ingredient ingredient) {
         ContentValues initialValues = new ContentValues(2);
 
         initialValues.put(IngredientTable.COL_ID, ingredient.getIngredientID());
@@ -77,7 +71,7 @@ public class IngredientDataSource {
         return ingredientList;
     }
 
-    public Cursor getWordMatches(String query, String[] columns) {
+    public Cursor getIngredientMatches(String query, String[] columns) {
         String selection = IngredientTable.COL_NAME + " MATCH ?";
         String[] selectionArgs = new String[]{query + "*"};
 
