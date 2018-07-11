@@ -15,7 +15,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="tab_text_1">FEATURED</string>
     <string name="tab_text_2">INGREDIENT SEARCH</string>
-    <string name="tab_text_3">ALL RECIPES</string>
-    <string name="tab_text_4">ADD INGREDIENT</string>
+    <string name="tab_text_3">ADD RECIPES</string>
+    <string name="tab_text_4">ALL RECIPES</string>
 
 </resources>

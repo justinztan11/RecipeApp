@@ -14,7 +14,7 @@ import com.recipe.recipeapp.Sample_Data.RecipeData;
 
 import java.util.List;
 
-public class Tab3AllRecipes extends Fragment {
+public class Tab4AllRecipes extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter; //populates recyclerview based on data
@@ -24,7 +24,7 @@ public class Tab3AllRecipes extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.tab3_all_recipes, container, false);
+        View rootView = inflater.inflate(R.layout.tab4_all_recipes, container, false);
         recyclerView = rootView.findViewById(R.id.recycle_view);
 
         RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(recipeList);

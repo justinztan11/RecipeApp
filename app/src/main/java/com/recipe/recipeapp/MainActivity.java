@@ -16,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -137,10 +136,10 @@ public class MainActivity extends AppCompatActivity
                     Tab2IngredientSearch tab2 = new Tab2IngredientSearch();
                     return tab2;
                 case 2:
-                    Tab3AllRecipes tab3 = new Tab3AllRecipes();
+                    Tab3AddRecipe tab3 = new Tab3AddRecipe();
                     return tab3;
                 case 3:
-                    Tab4AddIngredient tab4 = new Tab4AddIngredient();
+                    Tab4AllRecipes tab4 = new Tab4AllRecipes();
                     return tab4;
                 default:
                     return null;
