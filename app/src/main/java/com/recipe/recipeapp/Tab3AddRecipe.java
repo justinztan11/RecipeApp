@@ -17,8 +17,6 @@ public class Tab3AddRecipe extends Fragment {
         return rootView;
     }
 
-    TextInputEditText editTextName =(TextInputEditText)findViewById(R.id.editName);
-    editTextName.
 
 
 
