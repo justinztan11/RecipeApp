@@ -13,14 +13,22 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
 import com.recipe.recipeapp.Database_Recipe.RecipeDataSource;
 import com.recipe.recipeapp.Database_Recipe.RecipeTable;
 import com.recipe.recipeapp.Objects.Recipe;
 import com.recipe.recipeapp.Sample_Data.RecipeData;
+import com.recipe.recipeapp.Singleton.CategorySelectedSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +41,7 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     //private RecyclerView.Adapter adapter; //populates recyclerview based on data
     private RecyclerView.LayoutManager layoutManager; //positions layout of page
-
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +49,33 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(null);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        spinner = findViewById(R.id.spinner);
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(SearchActivity.this,
+                R.layout.custom_spinner_item,
+                getResources().getStringArray(R.array.categories_list));
+        listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(listAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(SearchActivity.this,
+                        spinner.getSelectedItem().toString(),
+                        Toast.LENGTH_SHORT).show();
+
+                CategorySelectedSingleton.getInstance().categorySelected =
+                        spinner.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                CategorySelectedSingleton.getInstance().categorySelected = "All";
+            }
+        });
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator2);
 
@@ -92,6 +125,13 @@ public class SearchActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        int searchImgId = searchView.getResources().getIdentifier("android:id/search_mag_icon", null, null);
+        ImageView searchImage = (ImageView) searchView.findViewById(searchImgId);
+        searchImage.setVisibility(View.GONE);
+        searchImage.setImageDrawable(null);
+
         return true;
     }
 
