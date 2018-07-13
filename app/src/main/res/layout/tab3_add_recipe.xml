@@ -18,7 +18,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="84dp"
         android:background="@android:drawable/ic_input_add"
         android:text="Add" />
 
@@ -56,5 +55,79 @@
         android:layout_marginTop="108dp"
         android:text="Image"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="180dp"
+        android:text="Description"
+        android:textSize="20sp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="157dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/button2"
+        android:layout_marginTop="170dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:hint="Description"
+            android:textSize="15sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="139dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="47dp"
+        android:text="Button" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="236dp"
+        android:text="Rating"
+        android:textSize="20sp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="227dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="243dp"
+        android:text="Procedure"
+        android:textSize="20sp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="366dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/null"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="69dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="145dp"
+            android:hint="Procedure" />
+    </android.support.design.widget.TextInputLayout>
 
 </RelativeLayout>
