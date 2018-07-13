@@ -117,17 +117,4 @@
         android:text="Procedure"
         android:textSize="20sp" />
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="366dp"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/null"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="69dp">
-
-        <android.support.design.widget.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="145dp"
-            android:hint="Procedure" />
-    </android.support.design.widget.TextInputLayout>
-
 </RelativeLayout>
