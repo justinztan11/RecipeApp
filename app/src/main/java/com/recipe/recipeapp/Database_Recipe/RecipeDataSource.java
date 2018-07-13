@@ -8,8 +8,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
+import android.widget.Spinner;
 
+import com.recipe.recipeapp.MainActivity;
 import com.recipe.recipeapp.Objects.Recipe;
+import com.recipe.recipeapp.SearchActivity;
+import com.recipe.recipeapp.Singleton.CategorySelectedSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +92,10 @@ public class RecipeDataSource {
     }
 
     public Cursor getRecipeMatches(String query, String[] columns) {
+
+        String categorySelected = CategorySelectedSingleton.getInstance().categorySelected;
+        Log.d("Category Selected", "getRecipeMatches - Category: " + categorySelected);
+
         String selection = RecipeTable.FTS_VIRTUAL_TABLE + " MATCH ?";
         String[] selectionArgs = new String[]{RecipeTable.COL_NAME + ":" + query + "* OR "
                 + RecipeTable.COL_DESCRIPTION + ":" + query + "*"};

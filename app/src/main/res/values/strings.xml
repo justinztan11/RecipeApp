@@ -18,4 +18,12 @@
     <string name="tab_text_3">ADD RECIPES</string>
     <string name="tab_text_4">ALL RECIPES</string>
 
+    <string-array name="categories_list">
+        <item>All</item>
+        <item>Noodle</item>
+        <item>Burger</item>
+        <item>Pizza</item>
+        <item>Brownie</item>
+    </string-array>
+
 </resources>

@@ -103,8 +103,6 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.my_recipe) {
 
-        } else if (id == R.id.category) {
-
         } else if (id == R.id.setting) {
 
         } else if (id == R.id.nav_share) {
