@@ -69,6 +69,18 @@ public class SearchActivity extends AppCompatActivity {
 
                 CategorySelectedSingleton.getInstance().categorySelected =
                         spinner.getSelectedItem().toString();
+
+                Cursor cursor = mDataSource.getRecipeMatches(null, null);
+
+                int matches = (cursor == null) ? 0 : cursor.getCount();
+                TextView matchCount = findViewById(R.id.match_count);
+                matchCount.setText("Recipe App,  " + matches + " recipe(s) - "
+                        + spinner.getSelectedItem().toString());
+
+                List<Recipe> resultsList = getResultsList(cursor);
+                RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(SearchActivity.this, resultsList);
+                recyclerView.setAdapter(adapter);
+
             }
 
             @Override
@@ -165,7 +177,8 @@ public class SearchActivity extends AppCompatActivity {
 
             int matches = (cursor == null) ? 0 : cursor.getCount();
             TextView matchCount = findViewById(R.id.match_count);
-            matchCount.setText("Recipe App,  " + matches + " recipes");
+            matchCount.setText("Recipe App,  " + matches + " recipe(s) - "
+                    + CategorySelectedSingleton.getInstance().categorySelected);
 
             List<Recipe> resultsList = getResultsList(cursor);
             RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(this, resultsList);
