@@ -39,7 +39,6 @@ public class SearchActivity extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
     private List<Recipe> recipeList = RecipeData.recipeList;
     private RecyclerView recyclerView;
-    //private RecyclerView.Adapter adapter; //populates recyclerview based on data
     private RecyclerView.LayoutManager layoutManager; //positions layout of page
     private Spinner spinner;
 
@@ -63,29 +62,19 @@ public class SearchActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(SearchActivity.this,
-                        spinner.getSelectedItem().toString(),
-                        Toast.LENGTH_SHORT).show();
-
                 CategorySelectedSingleton.getInstance().categorySelected =
                         spinner.getSelectedItem().toString();
 
                 Cursor cursor = mDataSource.getRecipeMatches(null, null);
-
-                int matches = (cursor == null) ? 0 : cursor.getCount();
-                TextView matchCount = findViewById(R.id.match_count);
-                matchCount.setText("Recipe App,  " + matches + " recipe(s) - "
-                        + spinner.getSelectedItem().toString());
-
-                List<Recipe> resultsList = getResultsList(cursor);
-                RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(SearchActivity.this, resultsList);
-                recyclerView.setAdapter(adapter);
-
+                setSearchDisplay(cursor);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 CategorySelectedSingleton.getInstance().categorySelected = "All";
+
+                Cursor cursor = mDataSource.getRecipeMatches(null, null);
+                setSearchDisplay(cursor);
             }
         });
 
@@ -148,22 +137,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
-        return super.onOptionsItemSelected(item);
-
-    }
-
-    @Override
     protected void onNewIntent(Intent intent) {
         setIntent(intent);
         handleIntent(intent);
@@ -173,25 +146,30 @@ public class SearchActivity extends AppCompatActivity {
 
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
+
             Cursor cursor = mDataSource.getRecipeMatches(query, null);
-
-            int matches = (cursor == null) ? 0 : cursor.getCount();
-            TextView matchCount = findViewById(R.id.match_count);
-            matchCount.setText("Recipe App,  " + matches + " recipe(s) - "
-                    + CategorySelectedSingleton.getInstance().categorySelected);
-
-            List<Recipe> resultsList = getResultsList(cursor);
-            RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(this, resultsList);
-            recyclerView.setAdapter(adapter);
+            setSearchDisplay(cursor);
         }
+    }
+
+    // given cursor,
+    // sets recycler view with appropriate data
+    // sets results count display in search page(under toolbar)
+    private void setSearchDisplay(Cursor cursor) {
+
+        int matches = (cursor == null) ? 0 : cursor.getCount();
+        TextView matchCount = findViewById(R.id.match_count);
+        matchCount.setText("Recipe App,  " + matches + " recipe(s) - "
+                + spinner.getSelectedItem().toString());
+
+        List<Recipe> resultsList = getResultsList(cursor);
+        RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(SearchActivity.this, resultsList);
+        recyclerView.setAdapter(adapter);
     }
 
     public List<Recipe> getResultsList(Cursor cursor) {
 
         List<Recipe> tempList = new ArrayList<>();
-
-        //Log.d("handleIntent", "got intent");
-        //Log.d("count", "cursor count: " + cursor.getCount());
 
         if (cursor != null) {
             try {
@@ -212,13 +190,6 @@ public class SearchActivity extends AppCompatActivity {
                 cursor.close();
             }
         }
-
-        // print output from cursor
-//        String result = "";
-//        for (Recipe recipe : tempList) {
-//            result += recipe.getName() + " ";
-//        }
-//        Log.d("listOutput", "Cursor List: " + result);
 
         return tempList;
     }

@@ -30,22 +30,6 @@ public final class RecipeData {
 
     }
 
-//    // given file path, populates list appropriate recipe data
-//    public static void populateList(String filePath) {
-//    }
-
-
-    // returns a list of all the recipes with the following ingredients
-    public static List<String> findRecipe(Set<String> ingredients) {
-        return null;
-    }
-
-    // returns the list of recipes
-    public static List<Recipe> getRecipe(String name) {
-        return null;
-    }
-
-    // adds recipe to recipe database and returns the recipe name
     public static String addRecipe(Recipe recipe) {
         if (recipe == null) {
             return null;
@@ -53,21 +37,6 @@ public final class RecipeData {
         recipeList.add(recipe);
 
         return recipe.getName();
-    }
-
-    // removes recipe from recipe database and returns the recipe name
-    public static String removeRecipe(Recipe recipe) {
-        if (recipe == null) {
-            return null;
-        }
-        recipeList.remove(recipe);
-
-        return recipe.getName();
-    }
-
-    // checks if recipe exists, returns true if it does, false otherwise
-    public static boolean containsRecipe(Recipe recipe) {
-        return recipeList.contains(recipe);
     }
 
     // sorts recipes based on alphabet
