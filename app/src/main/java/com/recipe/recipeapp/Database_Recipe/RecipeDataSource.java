@@ -72,27 +72,6 @@ public class RecipeDataSource {
         mDatabase.delete(RecipeTable.FTS_VIRTUAL_TABLE, null, null);
     }
 
-    public List<Recipe> getAll() {
-        List<Recipe> recipeList = new ArrayList<>();
-        Cursor cursor = mDatabase.query(RecipeTable.FTS_VIRTUAL_TABLE, RecipeTable.ALL_COL,
-                null, null, null, null, null);
-
-        while(cursor.moveToNext()) {
-            Recipe recipe = new Recipe();
-            recipe.setRecipeID(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_ID)));
-            recipe.setName(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_NAME)));
-            recipe.setDescription(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_DESCRIPTION)));
-            recipe.setImage(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_IMAGE)));
-            recipe.setRating(cursor.getFloat(cursor.getColumnIndex(RecipeTable.COL_RATING)));
-            recipe.setCategory(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_CATEGORY)));
-            recipeList.add(recipe);
-        }
-
-        cursor.close();
-
-        return recipeList;
-    }
-
     public Cursor getRecipeMatches(String query, String[] columns) {
 
         // the category selected from the search page
@@ -121,7 +100,6 @@ public class RecipeDataSource {
             }
         }
 
-
         return query(selection, selectionArgs, columns);
     }
 
@@ -130,7 +108,7 @@ public class RecipeDataSource {
         builder.setTables(RecipeTable.FTS_VIRTUAL_TABLE);
 
         Cursor cursor = builder.query(mDbHelper.getReadableDatabase(),
-                columns, selection, selectionArgs, null, null, null);
+                columns, selection, selectionArgs, null, null, RecipeTable.COL_NAME);
         
         if (cursor == null) {
             return null;
@@ -144,7 +122,6 @@ public class RecipeDataSource {
     public long getDataItemsCount() {
         return DatabaseUtils.queryNumEntries(mDatabase, RecipeTable.FTS_VIRTUAL_TABLE);
     }
-
 
 }
 

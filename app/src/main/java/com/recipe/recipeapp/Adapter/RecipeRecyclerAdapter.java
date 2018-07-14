@@ -16,6 +16,8 @@ import com.recipe.recipeapp.DetailsActivity;
 import com.recipe.recipeapp.Objects.Recipe;
 import com.recipe.recipeapp.R;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAdapter.ViewHolder> {
@@ -90,5 +92,35 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
     @Override
     public int getItemCount() {
         return recipeList.size();
+    }
+
+    // sorts recipes based on alphabet
+    public void sortRecipeAlpha() {
+        Collections.sort(recipeList, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe recipe1, Recipe recipe2){
+                return recipe1.getName().compareTo(recipe2.getName());
+            }
+        });
+    }
+
+    // sorts recipes based on rating
+    public void sortRecipeRating() {
+        Collections.sort(recipeList, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe recipe1, Recipe recipe2){
+                return (int) (recipe1.getRating() - recipe2.getRating());
+            }
+        });
+    }
+
+    // sorts recipes based on number of reviews (i.e. popularity)
+    public void sortRecipeReviews() {
+        Collections.sort(recipeList, new Comparator<Recipe>() {
+            @Override
+            public int compare(Recipe recipe1, Recipe recipe2){
+                return recipe1.getReviewCount() - recipe2.getReviewCount();
+            }
+        });
     }
 }

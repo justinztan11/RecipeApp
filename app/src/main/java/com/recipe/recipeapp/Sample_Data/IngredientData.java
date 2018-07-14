@@ -15,12 +15,6 @@ public final class IngredientData {
         addIngredient(new Ingredient("124", "potato"));
     }
 
-//    // given a filepath, populates list with ingredients from the file
-//    public static void populateList(String filePath) {
-//
-//    }
-
-    // adds ingredient to the database
     public static String addIngredient(Ingredient ingredient) {
         if (ingredient == null) {
             return null;
@@ -29,19 +23,6 @@ public final class IngredientData {
         return ingredient.getName();
     }
 
-    // removes ingredient from the database
-    public static String removeIngredient(Ingredient ingredient) {
-        if (ingredient == null) {
-            return null;
-        }
-        ingredientList.remove(ingredient);
 
-        return ingredient.getName();
-    }
-
-    // returns true if database contains ingredient
-    public static boolean containsIngredient() {
-        return !ingredientList.isEmpty();
-    }
 
 }
