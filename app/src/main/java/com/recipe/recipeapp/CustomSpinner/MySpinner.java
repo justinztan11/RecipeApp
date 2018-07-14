@@ -1,4 +1,4 @@
-package com.recipe.recipeapp;
+package com.recipe.recipeapp.CustomSpinner;
 
 import android.content.Context;
 import android.util.AttributeSet;
