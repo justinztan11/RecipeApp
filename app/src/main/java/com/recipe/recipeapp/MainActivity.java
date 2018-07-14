@@ -136,9 +136,6 @@ public class MainActivity extends AppCompatActivity
                 case 2:
                     Tab3AddRecipe tab3 = new Tab3AddRecipe();
                     return tab3;
-                case 3:
-                    Tab4AllRecipes tab4 = new Tab4AllRecipes();
-                    return tab4;
                 default:
                     return null;
             }
@@ -146,8 +143,8 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public int getCount() {
-            // Show 4 total pages.
-            return 4;
+            // Show 3 total pages.
+            return 3;
         }
 
     }
