@@ -25,20 +25,7 @@ public class Tab3AddRecipe extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab3_add_recipe, container, false);
-
-        nameInput = (EditText) getView().findViewById(R.id.editName);
-        descriptionInput = (EditText) getView().findViewById(R.id.editDescription);
-        addButton = (Button) getView().findViewById(R.id.add);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                name=nameInput.getText().toString();
-                description=descriptionInput.getText().toString();
-            }
-        });
-
-
-
+        super.onViewCreated(rootView, savedInstanceState);
 
         return rootView;
 
