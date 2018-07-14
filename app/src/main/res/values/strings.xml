@@ -20,10 +20,9 @@
 
     <string-array name="categories_list">
         <item>All</item>
+        <item>Meat</item>
         <item>Noodle</item>
-        <item>Burger</item>
-        <item>Pizza</item>
-        <item>Brownie</item>
+        <item>Bread</item>
     </string-array>
 
 </resources>

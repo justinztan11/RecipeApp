@@ -11,7 +11,7 @@ public class RecipeDatabaseOpenHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "RecipeDatabase";
     private static final String DATABASE_NAME = "DICTIONARY";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
 
     public RecipeDatabaseOpenHelper(Context context) {

@@ -47,6 +47,7 @@ public class RecipeDataSource {
                 Log.d("OUTPUT", "loadData: " + recipe.getDescription());
                 Log.d("OUTPUT", "loadData: " + recipe.getImage() );
                 Log.d("OUTPUT", "loadData: " + recipe.getRating() );
+                Log.d("OUTPUT", "loadData: " + recipe.getCategory());
             } catch (SQLiteException e) {
                 e.printStackTrace();
             }
@@ -59,9 +60,9 @@ public class RecipeDataSource {
         initialValues.put(RecipeTable.COL_ID, recipe.getRecipeID());
         initialValues.put(RecipeTable.COL_NAME, recipe.getName());
         initialValues.put(RecipeTable.COL_DESCRIPTION, recipe.getDescription());
-        //initialValues.put(RecipeTable.COL_CATEGORY, recipe.getCategory());
         initialValues.put(RecipeTable.COL_IMAGE, recipe.getImage());
         initialValues.put(RecipeTable.COL_RATING, recipe.getRating());
+        initialValues.put(RecipeTable.COL_CATEGORY, recipe.getCategory());
         //initialValues.put(RecipeTable.COL_REVIEW, recipe.getReviews());
 
         mDatabase.insert(RecipeTable.FTS_VIRTUAL_TABLE, null, initialValues);
@@ -83,6 +84,7 @@ public class RecipeDataSource {
             recipe.setDescription(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_DESCRIPTION)));
             recipe.setImage(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_IMAGE)));
             recipe.setRating(cursor.getFloat(cursor.getColumnIndex(RecipeTable.COL_RATING)));
+            recipe.setCategory(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_CATEGORY)));
             recipeList.add(recipe);
         }
 
@@ -93,12 +95,32 @@ public class RecipeDataSource {
 
     public Cursor getRecipeMatches(String query, String[] columns) {
 
-        String categorySelected = CategorySelectedSingleton.getInstance().categorySelected;
+        // the category selected from the search page
+        String categorySelected = CategorySelectedSingleton.getInstance()
+                .categorySelected.toLowerCase();
         Log.d("Category Selected", "getRecipeMatches - Category: " + categorySelected);
 
         String selection = RecipeTable.FTS_VIRTUAL_TABLE + " MATCH ?";
-        String[] selectionArgs = new String[]{RecipeTable.COL_NAME + ":" + query + "* OR "
-                + RecipeTable.COL_DESCRIPTION + ":" + query + "*"};
+        String[] selectionArgs;
+        if (query == null) {
+            if (categorySelected.equals("all")) {
+                selection = null;
+                selectionArgs = null;
+                columns = RecipeTable.ALL_COL;
+            } else {
+                selectionArgs = new String[]{RecipeTable.COL_CATEGORY + ":" + categorySelected};
+            }
+        } else {
+            if (categorySelected.equals("all")) {
+                selectionArgs = new String[]{RecipeTable.COL_NAME + ":" + query + "* OR "
+                        + RecipeTable.COL_DESCRIPTION + ":" + query + "*"};
+            } else {
+                selection = RecipeTable.COL_CATEGORY + " MATCH ?";
+                selectionArgs = new String[]{RecipeTable.COL_NAME + ":" + query + "* OR "
+                        + RecipeTable.COL_DESCRIPTION + ":" + query + "*" + categorySelected};
+            }
+        }
+
 
         return query(selection, selectionArgs, columns);
     }
