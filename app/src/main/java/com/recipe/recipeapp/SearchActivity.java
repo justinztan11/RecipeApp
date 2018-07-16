@@ -12,16 +12,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
 import com.recipe.recipeapp.Database_Recipe.RecipeDataSource;
@@ -52,7 +49,7 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        spinner = findViewById(R.id.spinner);
+        spinner = findViewById(R.id.spinner_category);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(SearchActivity.this,
                 R.layout.custom_spinner_item,
                 getResources().getStringArray(R.array.categories_list));
@@ -62,19 +59,19 @@ public class SearchActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                CategorySelectedSingleton.getInstance().categorySelected =
-                        spinner.getSelectedItem().toString();
+                if (position > 0) {
+                    CategorySelectedSingleton.getInstance().categorySelected =
+                            spinner.getSelectedItem().toString();
 
-                Cursor cursor = mDataSource.getRecipeMatches(null, null);
-                setSearchDisplay(cursor);
+                    Cursor cursor = mDataSource.getRecipeMatches(null, null);
+                    setSearchDisplay(cursor);
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 CategorySelectedSingleton.getInstance().categorySelected = "All";
 
-                Cursor cursor = mDataSource.getRecipeMatches(null, null);
-                setSearchDisplay(cursor);
             }
         });
 

@@ -19,6 +19,7 @@
     <string name="tab_text_4">ALL RECIPES</string>
 
     <string-array name="categories_list">
+        <item>Category</item>
         <item>All</item>
         <item>Meat</item>
         <item>Noodle</item>
