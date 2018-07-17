@@ -37,35 +37,67 @@ public class SearchActivity extends AppCompatActivity {
     private List<Recipe> recipeList = RecipeData.recipeList;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager; //positions layout of page
-    private Spinner spinner;
+    private Spinner categorySpinner;
+    private Spinner sortSpinner;
+    RecipeRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator2);
+
+
+        // TOOLBAR
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(null);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        spinner = findViewById(R.id.spinner_category);
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(SearchActivity.this,
+
+        // DATABASE
+        // creating and opening database
+        mDataSource = new RecipeDataSource(this);
+        mDataSource.open();
+        // delete all items in database
+        //mDataSource.deleteAll();
+        //populate database if not already existent
+        long numItems = mDataSource.getDataItemsCount();
+        if (numItems == 0) {
+            mDataSource.loadData(recipeList);
+        }
+
+
+        // RECYCLER VIEW
+        // initialized recycler view
+        recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+
+        // ADAPTER
+        // from list to recycler view
+        adapter = new RecipeRecyclerAdapter(SearchActivity.this, new ArrayList<Recipe>());
+
+
+        // SPINNER - CATEGORY
+        categorySpinner = findViewById(R.id.spinner_category);
+        ArrayAdapter<String> categoryListAdapter = new ArrayAdapter<>(SearchActivity.this,
                 R.layout.custom_spinner_item,
                 getResources().getStringArray(R.array.categories_list));
-        listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(listAdapter);
+        categoryListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(categoryListAdapter);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
-                    CategorySelectedSingleton.getInstance().categorySelected =
-                            spinner.getSelectedItem().toString();
 
-                    Cursor cursor = mDataSource.getRecipeMatches(null, null);
-                    setSearchDisplay(cursor);
-                }
+                CategorySelectedSingleton.getInstance().categorySelected =
+                        categorySpinner.getSelectedItem().toString();
+
+                Cursor cursor = mDataSource.getRecipeMatches(null, null);
+                setSearchDisplay(cursor);
             }
 
             @Override
@@ -75,29 +107,35 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator2);
 
-        // creating and opening database
-        mDataSource = new RecipeDataSource(this);
-        mDataSource.open();
-//        Snackbar.make(coordinatorLayout, "database created", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show();
+        // SPINNER - SORTING
+        sortSpinner = findViewById(R.id.spinner_sort);
+        ArrayAdapter<String> sortListAdapter = new ArrayAdapter<>(SearchActivity.this,
+                R.layout.custom_spinner_item,
+                getResources().getStringArray(R.array.sorting_list));
+        sortListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sortSpinner.setAdapter(sortListAdapter);
 
-        // delete all items in database
-        //mDataSource.deleteAll();
-        //populate database
-        long numItems = mDataSource.getDataItemsCount();
-        if (numItems == 0) {
-            mDataSource.loadData(recipeList);
-        }
+        sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+                setSortView(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        // set default search display to all recipes
+        Cursor cursor = mDataSource.getRecipeMatches(null, null);
+        setSearchDisplay(cursor);
 
         // handle ACTION_SEARCH intent
         handleIntent(getIntent());
-
     }
 
     @Override
@@ -157,14 +195,31 @@ public class SearchActivity extends AppCompatActivity {
         int matches = (cursor == null) ? 0 : cursor.getCount();
         TextView matchCount = findViewById(R.id.match_count);
         matchCount.setText("Recipe App,  " + matches + " recipe(s) - "
-                + spinner.getSelectedItem().toString());
+                + categorySpinner.getSelectedItem().toString());
 
         List<Recipe> resultsList = getResultsList(cursor);
-        RecipeRecyclerAdapter adapter = new RecipeRecyclerAdapter(SearchActivity.this, resultsList);
+        adapter.setRecipeList(resultsList);
         recyclerView.setAdapter(adapter);
+
+        int sortItem = sortSpinner.getSelectedItemPosition();
+        setSortView(sortItem);
     }
 
-    public List<Recipe> getResultsList(Cursor cursor) {
+    private void setSortView (int position) {
+
+        switch (position) {
+            case 0: // sort by alphabet
+                adapter.sortRecipeAlpha();
+                break;
+            case 1: // sort by rating
+                adapter.sortRecipeRating();
+                break;
+        }
+
+        adapter.notifyDataSetChanged();
+    }
+
+    private List<Recipe> getResultsList(Cursor cursor) {
 
         List<Recipe> tempList = new ArrayList<>();
 

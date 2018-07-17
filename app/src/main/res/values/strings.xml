@@ -19,11 +19,15 @@
     <string name="tab_text_4">ALL RECIPES</string>
 
     <string-array name="categories_list">
-        <item>Category</item>
         <item>All</item>
         <item>Meat</item>
         <item>Noodle</item>
         <item>Bread</item>
+    </string-array>
+
+    <string-array name="sorting_list">
+        <item>ABC</item>
+        <item>Rating</item>
     </string-array>
 
 </resources>

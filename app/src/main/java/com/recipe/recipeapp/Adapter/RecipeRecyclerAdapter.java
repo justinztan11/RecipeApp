@@ -94,6 +94,11 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
         return recipeList.size();
     }
 
+    // sets recipe list to given list
+    public void setRecipeList(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
+    }
+
     // sorts recipes based on alphabet
     public void sortRecipeAlpha() {
         Collections.sort(recipeList, new Comparator<Recipe>() {
@@ -109,7 +114,7 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
         Collections.sort(recipeList, new Comparator<Recipe>() {
             @Override
             public int compare(Recipe recipe1, Recipe recipe2){
-                return (int) (recipe1.getRating() - recipe2.getRating());
+                return (int) (100 * (recipe2.getRating() - recipe1.getRating()));
             }
         });
     }

@@ -30,8 +30,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="58dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="53dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="6dp"
                 android:src="@drawable/ic_catalog" />
 
@@ -51,7 +51,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="6dp"
                 android:layout_toLeftOf="@id/spinner_sort"
                 android:src="@drawable/ic_sort" />
@@ -63,8 +63,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="10dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginRight="12dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="6dp"
                 android:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
