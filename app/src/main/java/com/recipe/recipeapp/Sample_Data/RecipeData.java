@@ -24,9 +24,21 @@ public final class RecipeData {
         addRecipe(new Recipe(null, "cheese pizza", "meaty and cheesy",
                 null, 3.1f, "bread", null, null));
         addRecipe(new Recipe(null, "big mac", "better than BK",
-                null, 5.0f, "meat", null, null));
+                null, 3.0f, "meat", null, null));
         addRecipe(new Recipe(null, "the dog lover", "don't worry, not dog",
-                null, 1.2f, "meat", null, null));
+                null, 3.5f, "meat", null, null));
+        addRecipe(new Recipe(null, "spaghetti", "with pasty tomatoes",
+                null, 0.6f, "noodle", null, null));
+        addRecipe(new Recipe(null, "ramen", "better than instant",
+                null, 4.3f, "noodle", null, null));
+        addRecipe(new Recipe(null, "beef noodle soup", "beefy",
+                null, 4.0f, "noodle", null, null));
+        addRecipe(new Recipe(null, "orange chicken", "authentic americanized chinese",
+                null, 2.0f, "meat", null, null));
+        addRecipe(new Recipe(null, "fried chicken", "crispy goodness",
+                null, 5.0f, "meat", null, null));
+        addRecipe(new Recipe(null, "garlic bread", "stale",
+                null, 0.1f, "bread", null, null));
 
     }
 
@@ -37,37 +49,5 @@ public final class RecipeData {
         recipeList.add(recipe);
 
         return recipe.getName();
-    }
-
-    // sorts recipes based on alphabet
-    public void sortRecipeAlpha() {
-        Collections.sort(recipeList, new Comparator<Recipe>() {
-            @Override
-            public int compare(Recipe recipe1, Recipe recipe2){
-                return recipe1.getName().compareTo(recipe2.getName());
-            }
-        });
-    }
-
-    // sorts recipes based on rating
-    public void sortRecipeRating() {
-        Collections.sort(recipeList, new Comparator<Recipe>() {
-            @Override
-            public int compare(Recipe recipe1, Recipe recipe2){
-                // add code
-                return 0;
-            }
-        });
-    }
-
-    // sorts recipes based on number of reviews (i.e. popularity)
-    public void sortRecipeReviews() {
-        Collections.sort(recipeList, new Comparator<Recipe>() {
-            @Override
-            public int compare(Recipe recipe1, Recipe recipe2){
-                // add code
-                return 0;
-            }
-        });
     }
 }

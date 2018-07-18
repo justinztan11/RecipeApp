@@ -61,7 +61,7 @@ public class SearchActivity extends AppCompatActivity {
         mDataSource = new RecipeDataSource(this);
         mDataSource.open();
         // delete all items in database
-        //mDataSource.deleteAll();
+        mDataSource.deleteAll();
         //populate database if not already existent
         long numItems = mDataSource.getDataItemsCount();
         if (numItems == 0) {

@@ -23,6 +23,4 @@ public final class IngredientData {
         return ingredient.getName();
     }
 
-
-
 }
