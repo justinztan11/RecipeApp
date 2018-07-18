@@ -54,7 +54,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/textView3"
         android:layout_marginEnd="66dp"
-        android:text="Button" />
+        android:text="Get Image" />
 
     <TextView
         android:id="@+id/textView"
@@ -65,14 +65,6 @@
         android:layout_marginTop="240dp"
         android:text="Rating"
         android:textSize="20sp" />
-
-    <RatingBar
-        android:id="@+id/ratingBar"
-        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_alignStart="@+id/button2"
-        android:layout_alignTop="@+id/textView" />
 
     <TextView
         android:id="@+id/textView5"
@@ -123,5 +115,20 @@
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/textView6"
         android:layout_marginStart="175dp" />
+
+    <TextView
+        android:id="@+id/procedure"
+        android:layout_width="357dp"
+        android:layout_height="101dp"
+        android:layout_above="@+id/add"
+        android:layout_centerHorizontal="true"
+        android:text="procedure" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textView" />
 
 </RelativeLayout>
