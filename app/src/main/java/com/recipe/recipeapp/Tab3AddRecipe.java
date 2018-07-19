@@ -1,9 +1,10 @@
 package com.recipe.recipeapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.database.Cursor;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +17,9 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.recipe.recipeapp.Adapter.RecipeListAdapter;
-import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
 import com.recipe.recipeapp.Objects.Recipe;
 import com.recipe.recipeapp.Sample_Data.RecipeData;
 import com.recipe.recipeapp.Singleton.CategorySelectedSingleton;
-
-
 
 
 public class Tab3AddRecipe extends Fragment {
@@ -70,16 +67,45 @@ public class Tab3AddRecipe extends Fragment {
             }
         });
 
-        name=nameInput.getText().toString();
-        description=descriptionInput.getText().toString();
+        //for selecting camera or gallery
+
+        getImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(getActivity());
+                myAlertDialog.setTitle("Image Option");
+                myAlertDialog.setMessage("Select Picture Mode");
+
+                myAlertDialog.setPositiveButton("Gallery", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface arg0, int arg1)
+                    {
+
+                    }
+                });
+                myAlertDialog.setNegativeButton("Camera", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface arg0, int arg1)
+                    {
+
+                    }
+                });
+                myAlertDialog.show();
 
 
+
+            }
+        });
         //when the add button is clicked, new recipe is added with the new information
 
         Button addButton = (Button) rootView.findViewById(R.id.add);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                name=nameInput.getText().toString();
+                description=descriptionInput.getText().toString();
 
                 Recipe newRecipe = (new Recipe(null, name,description,
                         null, rating, category, null, null));
