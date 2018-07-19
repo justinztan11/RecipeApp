@@ -6,4 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <SearchView
+        android:id="@+id/ingredent_search"
+        android:layout_width="235dp"
+        android:layout_height="19dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="29dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="293dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ingredent_search"
+        android:layout_alignLeft="@+id/ingredent_search"
+        android:id="@+id/ingredient_recycler_view"/>
+
 </RelativeLayout>
