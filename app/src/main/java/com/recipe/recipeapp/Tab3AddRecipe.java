@@ -48,7 +48,7 @@ public class Tab3AddRecipe extends Fragment {
 
         final Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner2);
         ArrayAdapter<String> categoryListAdapter = new ArrayAdapter<>(this.getActivity(),
-                R.layout.custom_spinner_item,
+                android.R.layout.simple_spinner_item,
                 getResources().getStringArray(R.array.categories_list));
 
         categoryListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
