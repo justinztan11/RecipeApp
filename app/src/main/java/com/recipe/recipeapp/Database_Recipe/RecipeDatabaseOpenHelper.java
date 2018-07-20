@@ -10,8 +10,8 @@ import com.recipe.recipeapp.Database_Ingredient.IngredientTable;
 public class RecipeDatabaseOpenHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "RecipeDatabase";
-    private static final String DATABASE_NAME = "DICTIONARY";
-    private static final int DATABASE_VERSION = 3;
+    private static final String DATABASE_NAME = "RECIPES";
+    private static final int DATABASE_VERSION = 4;
 
 
     public RecipeDatabaseOpenHelper(Context context) {

@@ -8,7 +8,7 @@ public class IngredientDatabaseOpenHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "IngredientDatabase";
     private static final String DATABASE_NAME = "INGREDIENTS";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
 
     public IngredientDatabaseOpenHelper(Context context) {

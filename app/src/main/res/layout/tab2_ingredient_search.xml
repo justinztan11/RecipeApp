@@ -7,20 +7,22 @@
     tools:context=".MainActivity">
 
 
-    <SearchView
-        android:id="@+id/ingredent_search"
-        android:layout_width="235dp"
-        android:layout_height="19dp"
+    <AutoCompleteTextView
+        android:id="@+id/ingredient_auto_complete"
+        android:layout_width="293dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="29dp" />
+        android:layout_marginTop="29dp"
+        android:completionThreshold="1"
+        android:hint="ingredient" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/ingredient_recycler_view"
         android:layout_width="293dp"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ingredent_search"
-        android:layout_alignLeft="@+id/ingredent_search"
-        android:id="@+id/ingredient_recycler_view"/>
+        android:layout_alignLeft="@+id/ingredient_auto_complete"
+        android:layout_below="@+id/ingredient_auto_complete" />
 
 </RelativeLayout>

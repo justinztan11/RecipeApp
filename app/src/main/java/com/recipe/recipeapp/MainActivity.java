@@ -17,8 +17,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.recipe.recipeapp.Database_Ingredient.IngredientDataSource;
+import com.recipe.recipeapp.Database_Recipe.RecipeDataSource;
+import com.recipe.recipeapp.Objects.Ingredient;
+import com.recipe.recipeapp.Objects.Recipe;
+import com.recipe.recipeapp.Sample_Data.IngredientData;
+import com.recipe.recipeapp.Sample_Data.RecipeData;
+
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    // Where all database functions will be executed
+    public static RecipeDataSource mRecipeDataSource;
+    public static IngredientDataSource mIngredientDataSource;
+
+    // Where sample data is stored
+    private List<Recipe> recipeList;
+    private List<Ingredient> ingredientList;
 
     private CoordinatorLayout coordinatorLayout;
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -33,6 +50,36 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator);
+
+
+        // sample data
+        recipeList = RecipeData.recipeList;
+        ingredientList = IngredientData.ingredientList;
+
+
+        // DATABASE - RECIPE
+        // creating and opening database
+        mRecipeDataSource = new RecipeDataSource(this);
+        mRecipeDataSource.open();
+        // delete all items in database
+        mRecipeDataSource.deleteAll();
+        //populate database if not already existent
+        long numItems = mRecipeDataSource.getDataItemsCount();
+        if (numItems == 0) {
+            mRecipeDataSource.loadData(recipeList);
+        }
+
+        // DATABASE - INGREDIENT
+        // creating and opening database
+        mIngredientDataSource = new IngredientDataSource(this);
+        mIngredientDataSource.open();
+        // delete all items in database
+        mIngredientDataSource.deleteAll();
+        //populate database if not already existent
+        long numIngredientItems = mIngredientDataSource.getDataItemsCount();
+        if (numIngredientItems == 0) {
+            mIngredientDataSource.loadData(ingredientList);
+        }
 
 
         // NAVIGATION DRAWER
@@ -50,6 +97,7 @@ public class MainActivity extends AppCompatActivity
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -152,6 +200,7 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
 
 //    public void toSomeRecipe(View view) {
 //        Intent intent = new Intent(this, SomeActivity.class);

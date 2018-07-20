@@ -24,7 +24,6 @@ import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
 import com.recipe.recipeapp.Database_Recipe.RecipeDataSource;
 import com.recipe.recipeapp.Database_Recipe.RecipeTable;
 import com.recipe.recipeapp.Objects.Recipe;
-import com.recipe.recipeapp.Sample_Data.RecipeData;
 import com.recipe.recipeapp.Singleton.CategorySelectedSingleton;
 
 import java.util.ArrayList;
@@ -32,9 +31,8 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private RecipeDataSource mDataSource;
+    private RecipeDataSource mRecipeDataSource;
     private CoordinatorLayout coordinatorLayout;
-    private List<Recipe> recipeList = RecipeData.recipeList;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager; //positions layout of page
     private Spinner categorySpinner;
@@ -57,16 +55,8 @@ public class SearchActivity extends AppCompatActivity {
 
 
         // DATABASE
-        // creating and opening database
-        mDataSource = new RecipeDataSource(this);
-        mDataSource.open();
-        // delete all items in database
-        mDataSource.deleteAll();
-        //populate database if not already existent
-        long numItems = mDataSource.getDataItemsCount();
-        if (numItems == 0) {
-            mDataSource.loadData(recipeList);
-        }
+        // getting a reference to the DB created in Main Activity
+        mRecipeDataSource = MainActivity.mRecipeDataSource;
 
 
         // RECYCLER VIEW
@@ -96,7 +86,7 @@ public class SearchActivity extends AppCompatActivity {
                 CategorySelectedSingleton.getInstance().categorySelected =
                         categorySpinner.getSelectedItem().toString();
 
-                Cursor cursor = mDataSource.getRecipeMatches(null, null);
+                Cursor cursor = mRecipeDataSource.getRecipeMatches(null, null);
                 setSearchDisplay(cursor);
             }
 
@@ -131,7 +121,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
         // set default search display to all recipes
-        Cursor cursor = mDataSource.getRecipeMatches(null, null);
+        Cursor cursor = mRecipeDataSource.getRecipeMatches(null, null);
         setSearchDisplay(cursor);
 
         // handle ACTION_SEARCH intent
@@ -141,13 +131,13 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mDataSource.close();
+        mRecipeDataSource.close();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mDataSource.open();
+        mRecipeDataSource.open();
     }
 
     @Override
@@ -182,7 +172,7 @@ public class SearchActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
 
-            Cursor cursor = mDataSource.getRecipeMatches(query, null);
+            Cursor cursor = mRecipeDataSource.getRecipeMatches(query, null);
             setSearchDisplay(cursor);
         }
     }

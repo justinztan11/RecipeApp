@@ -3,6 +3,7 @@ package com.recipe.recipeapp.Database_Ingredient;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
@@ -72,8 +73,13 @@ public class IngredientDataSource {
     }
 
     public Cursor getIngredientMatches(String query, String[] columns) {
-        String selection = IngredientTable.COL_NAME + " MATCH ?";
-        String[] selectionArgs = new String[]{query + "*"};
+
+        String selection = null;
+        String[] selectionArgs = null;
+        if (query != null) {
+            selection = IngredientTable.COL_NAME + " MATCH ?";
+            selectionArgs = new String[]{query + "*"};
+        }
 
         return query(selection, selectionArgs, columns);
     }
@@ -95,6 +101,9 @@ public class IngredientDataSource {
     }
 
 
+    public long getDataItemsCount() {
+        return DatabaseUtils.queryNumEntries(mDatabase, IngredientTable.FTS_VIRTUAL_TABLE);
+    }
 }
 
 

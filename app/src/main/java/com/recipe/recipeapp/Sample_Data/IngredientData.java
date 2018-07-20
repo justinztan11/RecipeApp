@@ -11,8 +11,14 @@ public final class IngredientData {
     public static List<Ingredient> ingredientList = new ArrayList<Ingredient>();
 
     static {
-        addIngredient(new Ingredient("123", "onion"));
-        addIngredient(new Ingredient("124", "potato"));
+        addIngredient(new Ingredient(null, "onion"));
+        addIngredient(new Ingredient(null, "potato"));
+        addIngredient(new Ingredient(null, "salt"));
+        addIngredient(new Ingredient(null, "noodle"));
+        addIngredient(new Ingredient(null, "beef"));
+        addIngredient(new Ingredient(null, "bread"));
+        addIngredient(new Ingredient(null, "cheese"));
+
     }
 
     public static String addIngredient(Ingredient ingredient) {
