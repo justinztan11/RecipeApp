@@ -34,7 +34,11 @@ public class Tab2IngredientSearch extends Fragment {
         autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "entered ingredient " + autoComplete.getText(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "entered ingredient " + autoComplete.getText().toString()
+                        , Toast.LENGTH_LONG).show();
+
+                String ingredient = autoComplete.getText().toString();
+
             }
         });
 
