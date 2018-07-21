@@ -34,7 +34,6 @@ public class SearchActivity extends AppCompatActivity {
     private RecipeDataSource mRecipeDataSource;
     private CoordinatorLayout coordinatorLayout;
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager; //positions layout of page
     private Spinner categorySpinner;
     private Spinner sortSpinner;
     RecipeRecyclerAdapter adapter;
@@ -62,8 +61,7 @@ public class SearchActivity extends AppCompatActivity {
         // RECYCLER VIEW
         // initialized recycler view
         recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
         // ADAPTER

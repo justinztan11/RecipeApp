@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.recipe.recipeapp.DetailsActivity;
 import com.recipe.recipeapp.Objects.Recipe;
@@ -42,7 +41,7 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
             description = v.findViewById(R.id.description);
             ratingNumber = v.findViewById(R.id.rating_number);
             ratingBar = v.findViewById(R.id.rating_bar);
-            card = v.findViewById(R.id.card_view);
+            card = v.findViewById(R.id.recipe_card_view);
         }
     }
 
@@ -59,7 +58,7 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_card_item, parent, false);
         return new ViewHolder(v);
     }
 

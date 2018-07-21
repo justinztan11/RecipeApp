@@ -3,6 +3,8 @@ package com.recipe.recipeapp;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,33 +14,63 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import com.recipe.recipeapp.Adapter.IngredientRecyclerAdapter;
+import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
 import com.recipe.recipeapp.Database_Ingredient.IngredientTable;
 import com.recipe.recipeapp.Objects.Ingredient;
+import com.recipe.recipeapp.Objects.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Tab2IngredientSearch extends Fragment {
 
+    RecyclerView recyclerView;
+    IngredientRecyclerAdapter adapter;
+    String[] ingredientNames;
+    AutoCompleteTextView autoComplete;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab2_ingredient_search, container, false);
 
-        String[] ingredientNames = getIngredientNamesFromDB();
-        final AutoCompleteTextView autoComplete = rootView.findViewById(R.id.ingredient_auto_complete);
+        // RECYCLER VIEW
+        // initialized recycler view
+        recyclerView = rootView.findViewById(R.id.ingredient_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // ADAPTER
+        // from list to recycler view
+        List<String> tempList = new ArrayList<>();
+//        tempList.add("Corn");
+//        tempList.add("Broccoli");
+        adapter = new IngredientRecyclerAdapter(getContext(), tempList);
+        recyclerView.setAdapter(adapter); // set adapter
+
+        // Array of ingredient names from Ingredient DB
+        ingredientNames = getIngredientNamesFromDB();
+
+        // AUTO-COMPLETE TEXT
+        autoComplete = rootView.findViewById(R.id.ingredient_auto_complete);
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_dropdown_item_1line, ingredientNames);
         autoComplete.setAdapter(stringArrayAdapter);
 
+        // when item in drop-down menu is selected
         autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "entered ingredient " + autoComplete.getText().toString()
-                        , Toast.LENGTH_LONG).show();
 
                 String ingredient = autoComplete.getText().toString();
 
+                boolean added = adapter.addIngredient(ingredient);
+                adapter.notifyDataSetChanged();
+
+                if (added == false) {
+                    Toast.makeText(getActivity(), "Already Added "
+                            + autoComplete.getText().toString(), Toast.LENGTH_LONG).show();
+                }
             }
         });
 

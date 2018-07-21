@@ -16,13 +16,16 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="29dp"
         android:completionThreshold="1"
-        android:hint="ingredient" />
+        android:hint="Add Ingredient"
+        android:imeOptions="actionNext"
+        android:inputType="text" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ingredient_recycler_view"
         android:layout_width="293dp"
         android:layout_height="match_parent"
         android:layout_alignLeft="@+id/ingredient_auto_complete"
+        android:layout_alignParentBottom="true"
         android:layout_below="@+id/ingredient_auto_complete" />
 
 </RelativeLayout>
