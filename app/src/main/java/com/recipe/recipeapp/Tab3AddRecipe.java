@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -129,7 +130,36 @@ public class Tab3AddRecipe extends Fragment {
         });
 
         return rootView;
+    }
 
+    @Override
+    public void setUserVisibleHint(boolean visible) {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed()) {
+            onResume();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (!getUserVisibleHint()) {
+            return;
+        }
+
+        // FLOATING ACTION BUTTON
+        // set onclick listener
+        MainActivity mainActivity = (MainActivity)getActivity();
+        FloatingActionButton fabAdd = mainActivity.fab;
+
+        fabAdd.setImageResource(R.drawable.ic_add);
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Add Ingredient", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

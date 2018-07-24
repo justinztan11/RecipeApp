@@ -29,5 +29,6 @@
         <item>ABC</item>
         <item>Rating</item>
     </string-array>
+    <string name="title_activity_ingredient_search_display">IngredientSearchDisplay</string>
 
 </resources>

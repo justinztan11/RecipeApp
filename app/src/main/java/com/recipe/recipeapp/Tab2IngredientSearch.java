@@ -1,7 +1,10 @@
 package com.recipe.recipeapp;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -77,7 +80,39 @@ public class Tab2IngredientSearch extends Fragment {
         return rootView;
     }
 
-    public String[] getIngredientNamesFromDB(){
+    @Override
+    public void setUserVisibleHint(boolean visible) {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed()) {
+            onResume();
+        }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (!getUserVisibleHint()) {
+            return;
+        }
+
+        // FLOATING ACTION BUTTON
+        // set onclick listener
+        MainActivity mainActivity = (MainActivity)getActivity();
+        FloatingActionButton fabSearch = mainActivity.fab;
+
+        fabSearch.setImageResource(R.drawable.ic_search);
+        fabSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), IngredientSearchDisplay.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+        public String[] getIngredientNamesFromDB() {
 
         // add items on the array dynamically
         Cursor matches = MainActivity.mIngredientDataSource.getIngredientMatches(null, null);
@@ -116,4 +151,5 @@ public class Tab2IngredientSearch extends Fragment {
 
         return tempList;
     }
+
 }
