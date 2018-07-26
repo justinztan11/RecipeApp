@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,12 +7,13 @@
     tools:context=".IngredientSearchDisplay">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/display_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/ingredient_display_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -20,6 +21,10 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <!--<include layout="@layout/content_ingredient_search_display" />-->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/ingredient_display_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/display_bar" />
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

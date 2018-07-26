@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.recipe.recipeapp.R;
 import com.recipe.recipeapp.Tab2IngredientSearch;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class IngredientRecyclerAdapter extends RecyclerView.Adapter<IngredientRecyclerAdapter.ViewHolder>{
@@ -67,6 +68,23 @@ public class IngredientRecyclerAdapter extends RecyclerView.Adapter<IngredientRe
     @Override
     public int getItemCount() {
         return ingredientList.size();
+    }
+
+    /*
+     *  Returns ingredient list
+     */
+    public List<String> getIngredientList() {
+        return ingredientList;
+    }
+
+    /*
+     *  Removes all ingredients from list,
+     *  Returns removed list of ingredients
+     */
+    public List<String> removeAllIngredients() {
+        List<String> removedList = ingredientList;
+        ingredientList = new ArrayList<>();
+        return removedList;
     }
 
     /*

@@ -25,7 +25,8 @@
                 android:layout_marginLeft="15dp"
                 android:text="temp"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
 

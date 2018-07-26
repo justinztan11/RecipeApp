@@ -21,11 +21,13 @@ import java.util.List;
 public class RecipeDataSource {
 
     private Context mContext;
+
     private SQLiteDatabase mDatabase;
     private RecipeDatabaseOpenHelper mDbHelper;
 
     public RecipeDataSource(Context context) {
         this.mContext = context;
+
         mDbHelper = new RecipeDatabaseOpenHelper(mContext);
         mDatabase = mDbHelper.getWritableDatabase();
     }
@@ -102,6 +104,10 @@ public class RecipeDataSource {
 
         return query(selection, selectionArgs, columns);
     }
+
+//    private Cursor getRecipeFromIngredients(List<String> ingredients, String[] columns) {
+//
+//    }
 
     private Cursor query(String selection, String[] selectionArgs, String[] columns) {
         SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
