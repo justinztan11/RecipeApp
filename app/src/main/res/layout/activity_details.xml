@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/recipe_image"
+            android:id="@+id/details_image"
             android:layout_width="99dp"
             android:layout_height="102dp"
             android:layout_alignLeft="@+id/recipe_name"
@@ -21,7 +21,7 @@
             android:src="@drawable/mac_cheese" />
 
         <TextView
-            android:id="@+id/recipe_name"
+            android:id="@+id/details_name"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_alignParentLeft="true"
@@ -37,7 +37,7 @@
             android:textSize="17sp" />
 
         <RatingBar
-            android:id="@+id/rating_bar"
+            android:id="@+id/details_rating_bar"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             android:stepSize="1.0" />
 
         <TextView
-            android:id="@+id/rating_number"
+            android:id="@+id/details_rating_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/recipe_image"
@@ -63,7 +63,7 @@
             android:layout_marginTop="10dp"/>
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/details_description"
             android:layout_width="240dp"
             android:layout_height="87dp"
             android:layout_alignParentEnd="true"
