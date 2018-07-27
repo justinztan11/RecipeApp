@@ -1,7 +1,10 @@
 package com.recipe.recipeapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.sip.SipSession;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.recipe.recipeapp.Adapter.IngredientRecyclerAdapter;
@@ -22,16 +26,20 @@ import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
 import com.recipe.recipeapp.Database_Ingredient.IngredientTable;
 import com.recipe.recipeapp.Objects.Ingredient;
 import com.recipe.recipeapp.Objects.Recipe;
+import com.recipe.recipeapp.Singleton.IngredientsSelectedSingleton;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.List;
 
 public class Tab2IngredientSearch extends Fragment {
 
-    RecyclerView recyclerView;
-    IngredientRecyclerAdapter adapter;
-    String[] ingredientNames;
-    AutoCompleteTextView autoComplete;
+    private RecyclerView recyclerView;
+    public IngredientRecyclerAdapter adapter;
+    private String[] ingredientNames;
+    private AutoCompleteTextView autoComplete;
+    AlertDialog alert;
+    private ImageView refresh;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,21 +51,22 @@ public class Tab2IngredientSearch extends Fragment {
         recyclerView = rootView.findViewById(R.id.ingredient_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+
         // ADAPTER
         // from list to recycler view
-        List<String> tempList = new ArrayList<>();
-//        tempList.add("Corn");
-//        tempList.add("Broccoli");
-        adapter = new IngredientRecyclerAdapter(getContext(), tempList);
+        List<String> ingredientList = IngredientsSelectedSingleton.getInstance().ingredientList;
+        adapter = new IngredientRecyclerAdapter(getContext(), ingredientList);
         recyclerView.setAdapter(adapter); // set adapter
+
 
         // Array of ingredient names from Ingredient DB
         ingredientNames = getIngredientNamesFromDB();
 
+
         // AUTO-COMPLETE TEXT
-        autoComplete = rootView.findViewById(R.id.ingredient_auto_complete);
+        autoComplete = rootView.findViewById(R.id.ingredient_auto_complete);;
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_dropdown_item_1line, ingredientNames);
+                R.layout.custom_dropdown, ingredientNames);
         autoComplete.setAdapter(stringArrayAdapter);
 
         // when item in drop-down menu is selected
@@ -70,9 +79,50 @@ public class Tab2IngredientSearch extends Fragment {
                 boolean added = adapter.addIngredient(ingredient);
                 adapter.notifyDataSetChanged();
 
+                // allow ingredient list data to be accessible in another activity other than parent
+                IngredientsSelectedSingleton.getInstance().ingredientList = adapter.getIngredientList();
+
                 if (added == false) {
                     Toast.makeText(getActivity(), "Already Added "
                             + autoComplete.getText().toString(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+        // ALERT DIALOG
+        // prompts the user to confirm removing all ingredients
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage("Remove All?");
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        adapter.removeAllIngredients();
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+        builder.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        alert = builder.create();
+
+
+        // REFRESH BUTTON
+        // removes all selected ingredients
+        refresh = rootView.findViewById(R.id.refresh);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (adapter.getItemCount() > 0) {
+                    alert.show();
                 }
             }
         });
@@ -99,7 +149,7 @@ public class Tab2IngredientSearch extends Fragment {
 
         // FLOATING ACTION BUTTON
         // set onclick listener
-        MainActivity mainActivity = (MainActivity)getActivity();
+        MainActivity mainActivity = (MainActivity) getActivity();
         FloatingActionButton fabSearch = mainActivity.fab;
 
         fabSearch.setImageResource(R.drawable.ic_search);
@@ -112,7 +162,8 @@ public class Tab2IngredientSearch extends Fragment {
         });
     }
 
-        public String[] getIngredientNamesFromDB() {
+
+    public String[] getIngredientNamesFromDB() {
 
         // add items on the array dynamically
         Cursor matches = MainActivity.mIngredientDataSource.getIngredientMatches(null, null);
