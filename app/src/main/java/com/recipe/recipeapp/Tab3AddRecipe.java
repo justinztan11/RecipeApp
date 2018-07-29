@@ -43,6 +43,8 @@ public class Tab3AddRecipe extends Fragment {
         final Button getImage = (Button) rootView.findViewById(R.id.button2);
         final RatingBar ratBar = (RatingBar) rootView.findViewById(R.id.ratingBar);
 
+        name=nameInput.getText().toString();
+        description=descriptionInput.getText().toString();
 
         ratBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -108,26 +110,6 @@ public class Tab3AddRecipe extends Fragment {
         });
         //when the add button is clicked, new recipe is added with the new information
 
-        Button addButton = (Button) rootView.findViewById(R.id.add);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                name=nameInput.getText().toString();
-                description=descriptionInput.getText().toString();
-
-                Recipe newRecipe = (new Recipe(null, name,description,
-                        null, rating, category, null, null));
-                RecipeData recipeData = new RecipeData();
-                recipeData.addRecipe(newRecipe);
-
-                Context context = getActivity();
-                String text = "New Recipe added!";
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-            }
-        });
 
         return rootView;
     }
@@ -152,12 +134,27 @@ public class Tab3AddRecipe extends Fragment {
         // set onclick listener
         MainActivity mainActivity = (MainActivity)getActivity();
         FloatingActionButton fabAdd = mainActivity.fab;
+        final EditText nameInput = (EditText) getView().findViewById(R.id.editName);
+        final EditText descriptionInput = (EditText) getView().findViewById(R.id.editDescription);
 
         fabAdd.setImageResource(R.drawable.ic_add);
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Add Ingredient", Toast.LENGTH_SHORT).show();
+
+                name=nameInput.getText().toString();
+                description=descriptionInput.getText().toString();
+
+                Recipe newRecipe = (new Recipe(null, name,description,
+                        null, rating, category, null, null));
+                RecipeData recipeData = new RecipeData();
+                recipeData.addRecipe(newRecipe);
+
+                Context context = getActivity();
+                String text = "New Recipe added!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context,text, duration);
+                toast.show();
             }
         });
     }

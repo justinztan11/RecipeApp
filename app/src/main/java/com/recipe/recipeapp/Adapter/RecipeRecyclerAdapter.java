@@ -2,6 +2,7 @@ package com.recipe.recipeapp.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,7 +21,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAdapter.ViewHolder> {
-    public static final String ITEM_ID_KEY = "item_id";
     private List<Recipe> recipeList;
     private Context c;
 
@@ -74,12 +74,21 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
         holder.ratingBar.setRating(recipeList.get(position).getRating());
 
         final String recipeID = recipeList.get(position).getRecipeID();
+        final String name = recipeList.get(position).getName();
+        final String description = recipeList.get(position).getDescription();
+        final String ratingNumber = "(" + Integer.toString(recipeList.get(position).getReviewCount()) + ")";
+        final float ratingBar = recipeList.get(position).getRating();
 
         holder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(c, DetailsActivity.class);
-                intent.putExtra(ITEM_ID_KEY, recipeID);
+                Bundle bundle = new Bundle();
+                bundle.putString("recipeID", recipeID);
+                bundle.putString("name", name);
+                bundle.putString("description", description);
+                bundle.putString("ratingNumber", ratingNumber);
+                intent.putExtras(bundle);
                 c.startActivity(intent);
             }
         });
