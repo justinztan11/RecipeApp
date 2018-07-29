@@ -7,6 +7,7 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 
 
 import com.recipe.recipeapp.Objects.Ingredient;
@@ -71,6 +72,32 @@ public class IngredientDataSource {
 
         return ingredientList;
     }
+
+
+    public List<Ingredient> getResultsList(Cursor cursor) {
+
+        List<Ingredient> tempList = new ArrayList<>();
+
+        if (cursor != null) {
+            try {
+                // cursor starts at index 0, needs to execute below block only once before moving
+                do {
+                    Ingredient ingredient = new Ingredient();
+                    ingredient.setIngredientID(cursor.getString(cursor.getColumnIndex(IngredientTable.COL_ID)));
+                    ingredient.setName(cursor.getString(cursor.getColumnIndex(IngredientTable.COL_NAME)));
+                    tempList.add(ingredient);
+                    Log.d("searchOutput", "Search Output: " + ingredient.getName());
+
+                } while (cursor.moveToNext());
+
+            } finally {
+                cursor.close();
+            }
+        }
+
+        return tempList;
+    }
+
 
     public Cursor getIngredientMatches(String query, String[] columns) {
 

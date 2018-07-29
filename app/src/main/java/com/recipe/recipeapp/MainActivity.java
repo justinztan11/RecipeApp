@@ -66,11 +66,7 @@ public class MainActivity extends AppCompatActivity
         mRecipeDataSource.open();
         // delete all items in database
         mRecipeDataSource.deleteAll();
-        //populate database if not already existent
-        long numItems = mRecipeDataSource.getDataItemsCount();
-        if (numItems == 0) {
-            mRecipeDataSource.loadData(recipeList);
-        }
+
 
         // DATABASE - INGREDIENT
         // creating and opening database
@@ -78,11 +74,21 @@ public class MainActivity extends AppCompatActivity
         mIngredientDataSource.open();
         // delete all items in database
         mIngredientDataSource.deleteAll();
-        //populate database if not already existent
+
+
+        // POPULATE DATABASES
+        // populate Ingredient database if not already existent
         long numIngredientItems = mIngredientDataSource.getDataItemsCount();
         if (numIngredientItems == 0) {
             mIngredientDataSource.loadData(ingredientList);
         }
+
+        // populate Recipe database if not already existent
+        long numItems = mRecipeDataSource.getDataItemsCount();
+        if (numItems == 0) {
+            mRecipeDataSource.loadData(recipeList);
+        }
+
 
 
         // NAVIGATION DRAWER

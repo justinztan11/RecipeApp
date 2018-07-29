@@ -3,7 +3,7 @@ package com.recipe.recipeapp.Database_Recipe_Ingredient_Join;
 public class JoinTable {
 
     // table name
-    public static final String SQL_TABLE = "JOIN";
+    public static final String SQL_TABLE = "JT";
 
     //The columns in the table
     public static final String COL_RECIPE_ID = "recipeID";
@@ -13,7 +13,7 @@ public class JoinTable {
             {COL_RECIPE_ID, COL_INGREDIENT_ID};
 
     public static final String SQL_TABLE_CREATE =
-            "CREATE TABLE IF NOT EXISTS " + SQL_TABLE +
+            "CREATE TABLE IF NOT EXISTS " + SQL_TABLE + " (" +
                     COL_RECIPE_ID + " TEXT, " +
                     COL_INGREDIENT_ID + " TEXT" +
                     ")";

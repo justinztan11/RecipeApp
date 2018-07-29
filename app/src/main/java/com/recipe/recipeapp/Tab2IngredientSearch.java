@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.recipe.recipeapp.Adapter.IngredientRecyclerAdapter;
 import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
+import com.recipe.recipeapp.Database_Ingredient.IngredientDataSource;
 import com.recipe.recipeapp.Database_Ingredient.IngredientTable;
 import com.recipe.recipeapp.Objects.Ingredient;
 import com.recipe.recipeapp.Objects.Recipe;
@@ -34,17 +35,24 @@ import java.util.List;
 
 public class Tab2IngredientSearch extends Fragment {
 
+    private IngredientDataSource mIngredientDataSource;
     private RecyclerView recyclerView;
-    public IngredientRecyclerAdapter adapter;
+    private IngredientRecyclerAdapter adapter;
     private String[] ingredientNames;
     private AutoCompleteTextView autoComplete;
-    AlertDialog alert;
+    private AlertDialog alert;
     private ImageView refresh;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.tab2_ingredient_search, container, false);
+
+
+        // DATABASE
+        // getting a reference to the DB created in Main Activity
+        mIngredientDataSource = MainActivity.mIngredientDataSource;
+
 
         // RECYCLER VIEW
         // initialized recycler view
@@ -166,8 +174,8 @@ public class Tab2IngredientSearch extends Fragment {
     public String[] getIngredientNamesFromDB() {
 
         // add items on the array dynamically
-        Cursor matches = MainActivity.mIngredientDataSource.getIngredientMatches(null, null);
-        List<Ingredient> ingredientList = getResultsList(matches);
+        Cursor matches = mIngredientDataSource.getIngredientMatches(null, null);
+        List<Ingredient> ingredientList = mIngredientDataSource.getResultsList(matches);
 
         int size = ingredientList.size();
         String[] ingredientNames = new String[size];
@@ -177,30 +185,6 @@ public class Tab2IngredientSearch extends Fragment {
         }
 
         return ingredientNames;
-    }
-
-    private List<Ingredient> getResultsList(Cursor cursor) {
-
-        List<Ingredient> tempList = new ArrayList<>();
-
-        if (cursor != null) {
-            try {
-                // cursor starts at index 0, needs to execute below block only once before moving
-                do {
-                    Ingredient ingredient = new Ingredient();
-                    ingredient.setIngredientID(cursor.getString(cursor.getColumnIndex(IngredientTable.COL_ID)));
-                    ingredient.setName(cursor.getString(cursor.getColumnIndex(IngredientTable.COL_NAME)));
-                    tempList.add(ingredient);
-                    Log.d("searchOutput", "Search Output: " + ingredient.getName());
-
-                } while (cursor.moveToNext());
-
-            } finally {
-                cursor.close();
-            }
-        }
-
-        return tempList;
     }
 
 }

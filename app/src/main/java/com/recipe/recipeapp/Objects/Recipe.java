@@ -16,10 +16,16 @@ public class Recipe {
     private List<String> procedure;
     private List<Review> reviews;
 
-    public Recipe(String name) {this.name = name;}
-
     public Recipe() {
         this(null, null, null, null, 0, null, null, null);
+    }
+
+    public Recipe(String name) {
+        this(null, name, null, null, 0, null, null, null);
+    }
+
+    public Recipe(String name, String description, String image, float rating, String category,  List<String> ingredients, List<String> procedure) {
+        this(null, name, description, image, rating, category, ingredients, procedure);
     }
 
     public Recipe(String recipeID, String name, String description, String image, float rating, String category,  List<String> ingredients, List<String> procedure) {

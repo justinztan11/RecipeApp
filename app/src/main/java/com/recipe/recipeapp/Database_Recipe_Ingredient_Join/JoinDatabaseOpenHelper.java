@@ -9,7 +9,7 @@ public class JoinDatabaseOpenHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "JoinDatabase";
     private static final String DATABASE_NAME = "JOIN";
-    private static final int DATABASE_VERSION = 0;
+    private static final int DATABASE_VERSION = 1;
 
 
     public JoinDatabaseOpenHelper(Context context) {

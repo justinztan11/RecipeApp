@@ -6,12 +6,11 @@ public class Ingredient {
     private String ingredientID;
     private String name;
 
-
-    public Ingredient(String name) {this.name = name;}
-
     public Ingredient() {
-        this(null, null);
-    }
+        this(null, null);}
+
+    public Ingredient(String name) {
+        this(null, name);}
 
     public Ingredient(String ingredientID, String name) {
 

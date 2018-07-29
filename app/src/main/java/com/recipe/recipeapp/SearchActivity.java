@@ -185,7 +185,7 @@ public class SearchActivity extends AppCompatActivity {
         matchCount.setText("Recipe App,  " + matches + " recipe(s) - "
                 + categorySpinner.getSelectedItem().toString());
 
-        List<Recipe> resultsList = getResultsList(cursor);
+        List<Recipe> resultsList = mRecipeDataSource.getResultsList(cursor);
         adapter.setRecipeList(resultsList);
         recyclerView.setAdapter(adapter);
 
@@ -207,31 +207,6 @@ public class SearchActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    private List<Recipe> getResultsList(Cursor cursor) {
 
-        List<Recipe> tempList = new ArrayList<>();
-
-        if (cursor != null) {
-            try {
-                // cursor starts at index 0, needs to execute below block only once before moving
-                do {
-                    Recipe recipe = new Recipe();
-                    recipe.setRecipeID(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_ID)));
-                    recipe.setName(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_NAME)));
-                    recipe.setDescription(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_DESCRIPTION)));
-                    recipe.setImage(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_IMAGE)));
-                    recipe.setRating(cursor.getFloat(cursor.getColumnIndex(RecipeTable.COL_RATING)));
-                    tempList.add(recipe);
-                    Log.d("searchOutput", "Search Output: " + recipe.getName());
-
-                } while (cursor.moveToNext());
-
-            } finally {
-                cursor.close();
-            }
-        }
-
-        return tempList;
-    }
 
 }

@@ -8,11 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
-import android.widget.Spinner;
 
+import com.recipe.recipeapp.Database_Ingredient.IngredientDataSource;
+import com.recipe.recipeapp.Database_Ingredient.IngredientDatabaseOpenHelper;
+import com.recipe.recipeapp.Database_Recipe_Ingredient_Join.JoinDatabaseOpenHelper;
+import com.recipe.recipeapp.Database_Recipe_Ingredient_Join.JoinTable;
 import com.recipe.recipeapp.MainActivity;
 import com.recipe.recipeapp.Objects.Recipe;
-import com.recipe.recipeapp.SearchActivity;
 import com.recipe.recipeapp.Singleton.CategorySelectedSingleton;
 
 import java.util.ArrayList;
@@ -25,11 +27,18 @@ public class RecipeDataSource {
     private SQLiteDatabase mDatabase;
     private RecipeDatabaseOpenHelper mDbHelper;
 
+    private SQLiteDatabase jDatabase;
+    private JoinDatabaseOpenHelper jDbHelper;
+
     public RecipeDataSource(Context context) {
         this.mContext = context;
 
         mDbHelper = new RecipeDatabaseOpenHelper(mContext);
         mDatabase = mDbHelper.getWritableDatabase();
+
+        jDbHelper = new JoinDatabaseOpenHelper(mContext);
+        jDatabase = jDbHelper.getWritableDatabase();
+
     }
 
     public void open() {
@@ -57,21 +66,71 @@ public class RecipeDataSource {
     }
 
     public void addRecipe(Recipe recipe) {
-        ContentValues initialValues = new ContentValues(5);
 
-        initialValues.put(RecipeTable.COL_ID, recipe.getRecipeID());
-        initialValues.put(RecipeTable.COL_NAME, recipe.getName());
-        initialValues.put(RecipeTable.COL_DESCRIPTION, recipe.getDescription());
-        initialValues.put(RecipeTable.COL_IMAGE, recipe.getImage());
-        initialValues.put(RecipeTable.COL_RATING, recipe.getRating());
-        initialValues.put(RecipeTable.COL_CATEGORY, recipe.getCategory());
-        //initialValues.put(RecipeTable.COL_REVIEW, recipe.getReviews());
+        // ADD TO RECIPE TABLE
+        ContentValues recipeValues = new ContentValues(5);
 
-        mDatabase.insert(RecipeTable.FTS_VIRTUAL_TABLE, null, initialValues);
+        recipeValues.put(RecipeTable.COL_ID, recipe.getRecipeID());
+        recipeValues.put(RecipeTable.COL_NAME, recipe.getName());
+        recipeValues.put(RecipeTable.COL_DESCRIPTION, recipe.getDescription());
+        recipeValues.put(RecipeTable.COL_IMAGE, recipe.getImage());
+        recipeValues.put(RecipeTable.COL_RATING, recipe.getRating());
+        recipeValues.put(RecipeTable.COL_CATEGORY, recipe.getCategory());
+        //recipeValues.put(RecipeTable.COL_REVIEW, recipe.getReviews());
+
+        mDatabase.insert(RecipeTable.FTS_VIRTUAL_TABLE, null, recipeValues);
+
+
+        // ADD TO JOIN TABLE
+        List<String> ingredients = recipe.getIngredients();
+
+        if (ingredients != null) {
+            for (String ingredient : ingredients) {
+                ContentValues joinValues = new ContentValues(2);
+
+                IngredientDataSource mIngredientDataSource = MainActivity.mIngredientDataSource;
+                Cursor cursor = mIngredientDataSource.getIngredientMatches(ingredient, null);
+                String ingredientID = mIngredientDataSource.getResultsList(cursor)
+                                        .get(0).getIngredientID();
+
+                joinValues.put(JoinTable.COL_RECIPE_ID, recipe.getRecipeID());
+                joinValues.put(JoinTable.COL_INGREDIENT_ID, ingredientID);
+
+                jDatabase.insert(JoinTable.SQL_TABLE, null, joinValues);
+            }
+        }
+
     }
 
     public void deleteAll() {
         mDatabase.delete(RecipeTable.FTS_VIRTUAL_TABLE, null, null);
+    }
+
+    public List<Recipe> getResultsList(Cursor cursor) {
+
+        List<Recipe> tempList = new ArrayList<>();
+
+        if (cursor != null) {
+            try {
+                // cursor starts at index 0, needs to execute below block only once before moving
+                do {
+                    Recipe recipe = new Recipe();
+                    recipe.setRecipeID(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_ID)));
+                    recipe.setName(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_NAME)));
+                    recipe.setDescription(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_DESCRIPTION)));
+                    recipe.setImage(cursor.getString(cursor.getColumnIndex(RecipeTable.COL_IMAGE)));
+                    recipe.setRating(cursor.getFloat(cursor.getColumnIndex(RecipeTable.COL_RATING)));
+                    tempList.add(recipe);
+                    Log.d("searchOutput", "Search Output: " + recipe.getName());
+
+                } while (cursor.moveToNext());
+
+            } finally {
+                cursor.close();
+            }
+        }
+
+        return tempList;
     }
 
     public Cursor getRecipeMatches(String query, String[] columns) {
@@ -105,10 +164,6 @@ public class RecipeDataSource {
         return query(selection, selectionArgs, columns);
     }
 
-//    private Cursor getRecipeFromIngredients(List<String> ingredients, String[] columns) {
-//
-//    }
-
     private Cursor query(String selection, String[] selectionArgs, String[] columns) {
         SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
         builder.setTables(RecipeTable.FTS_VIRTUAL_TABLE);
@@ -124,6 +179,10 @@ public class RecipeDataSource {
         }
         return cursor;
     }
+
+    //    private Cursor getRecipeFromIngredients(List<String> ingredients, String[] columns) {
+//
+//    }
 
     public long getDataItemsCount() {
         return DatabaseUtils.queryNumEntries(mDatabase, RecipeTable.FTS_VIRTUAL_TABLE);
