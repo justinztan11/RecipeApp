@@ -1,4 +1,4 @@
-package com.recipe.recipeapp.Database_Ingredient;
+package com.recipe.recipeapp.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
-
 import com.recipe.recipeapp.Objects.Ingredient;
 
 import java.util.ArrayList;
@@ -19,11 +18,11 @@ public class IngredientDataSource {
 
     private Context mContext;
     SQLiteDatabase mDatabase;
-    IngredientDatabaseOpenHelper mDbHelper;
+    DatabaseOpenHelper mDbHelper;
 
     public IngredientDataSource(Context context) {
         this.mContext = context;
-        mDbHelper = new IngredientDatabaseOpenHelper(mContext);
+        mDbHelper = new DatabaseOpenHelper(mContext);
         mDatabase = mDbHelper.getWritableDatabase();
     }
 
@@ -126,7 +125,6 @@ public class IngredientDataSource {
         }
         return cursor;
     }
-
 
     public long getDataItemsCount() {
         return DatabaseUtils.queryNumEntries(mDatabase, IngredientTable.FTS_VIRTUAL_TABLE);

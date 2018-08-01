@@ -1,13 +1,13 @@
-package com.recipe.recipeapp.Database_Ingredient;
+package com.recipe.recipeapp.Database;
 
 public class IngredientTable {
 
     // table name
-    public static final String FTS_VIRTUAL_TABLE = "FTS";
+    public static final String FTS_VIRTUAL_TABLE = "IGT";
 
     //The columns in the table
     public static final String COL_ID = "ingredientID";
-    public static final String COL_NAME = "name";
+    public static final String COL_NAME = "ingredientName";
 
     public static final String[] ALL_COL =
             {COL_ID, COL_NAME};

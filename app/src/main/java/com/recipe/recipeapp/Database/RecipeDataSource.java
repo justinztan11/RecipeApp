@@ -1,4 +1,4 @@
-package com.recipe.recipeapp.Database_Recipe;
+package com.recipe.recipeapp.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,10 +9,6 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.util.Log;
 
-import com.recipe.recipeapp.Database_Ingredient.IngredientDataSource;
-import com.recipe.recipeapp.Database_Ingredient.IngredientDatabaseOpenHelper;
-import com.recipe.recipeapp.Database_Recipe_Ingredient_Join.JoinDatabaseOpenHelper;
-import com.recipe.recipeapp.Database_Recipe_Ingredient_Join.JoinTable;
 import com.recipe.recipeapp.MainActivity;
 import com.recipe.recipeapp.Objects.Recipe;
 import com.recipe.recipeapp.Singleton.CategorySelectedSingleton;
@@ -25,19 +21,13 @@ public class RecipeDataSource {
     private Context mContext;
 
     private SQLiteDatabase mDatabase;
-    private RecipeDatabaseOpenHelper mDbHelper;
-
-    private SQLiteDatabase jDatabase;
-    private JoinDatabaseOpenHelper jDbHelper;
+    private DatabaseOpenHelper mDbHelper;
 
     public RecipeDataSource(Context context) {
         this.mContext = context;
 
-        mDbHelper = new RecipeDatabaseOpenHelper(mContext);
+        mDbHelper = new DatabaseOpenHelper(mContext);
         mDatabase = mDbHelper.getWritableDatabase();
-
-        jDbHelper = new JoinDatabaseOpenHelper(mContext);
-        jDatabase = jDbHelper.getWritableDatabase();
 
     }
 
@@ -50,14 +40,14 @@ public class RecipeDataSource {
     }
 
     public void loadData(List<Recipe> recipeList) {
-        for (Recipe recipe: recipeList) {
+        for (Recipe recipe : recipeList) {
             try {
                 addRecipe(recipe);
-                Log.d("OUTPUT", "loadData: " + recipe.getRecipeID() );
-                Log.d("OUTPUT", "loadData: " + recipe.getName() );
+                Log.d("OUTPUT", "loadData: " + recipe.getRecipeID());
+                Log.d("OUTPUT", "loadData: " + recipe.getName());
                 Log.d("OUTPUT", "loadData: " + recipe.getDescription());
-                Log.d("OUTPUT", "loadData: " + recipe.getImage() );
-                Log.d("OUTPUT", "loadData: " + recipe.getRating() );
+                Log.d("OUTPUT", "loadData: " + recipe.getImage());
+                Log.d("OUTPUT", "loadData: " + recipe.getRating());
                 Log.d("OUTPUT", "loadData: " + recipe.getCategory());
             } catch (SQLiteException e) {
                 e.printStackTrace();
@@ -91,12 +81,12 @@ public class RecipeDataSource {
                 IngredientDataSource mIngredientDataSource = MainActivity.mIngredientDataSource;
                 Cursor cursor = mIngredientDataSource.getIngredientMatches(ingredient, null);
                 String ingredientID = mIngredientDataSource.getResultsList(cursor)
-                                        .get(0).getIngredientID();
+                        .get(0).getIngredientID();
 
                 joinValues.put(JoinTable.COL_RECIPE_ID, recipe.getRecipeID());
                 joinValues.put(JoinTable.COL_INGREDIENT_ID, ingredientID);
 
-                jDatabase.insert(JoinTable.SQL_TABLE, null, joinValues);
+                mDatabase.insert(JoinTable.SQL_TABLE, null, joinValues);
             }
         }
 
@@ -104,6 +94,7 @@ public class RecipeDataSource {
 
     public void deleteAll() {
         mDatabase.delete(RecipeTable.FTS_VIRTUAL_TABLE, null, null);
+        mDatabase.delete(JoinTable.SQL_TABLE, null, null);
     }
 
     public List<Recipe> getResultsList(Cursor cursor) {
@@ -170,7 +161,7 @@ public class RecipeDataSource {
 
         Cursor cursor = builder.query(mDbHelper.getReadableDatabase(),
                 columns, selection, selectionArgs, null, null, RecipeTable.COL_NAME);
-        
+
         if (cursor == null) {
             return null;
         } else if (!cursor.moveToFirst()) {
@@ -180,9 +171,58 @@ public class RecipeDataSource {
         return cursor;
     }
 
-    //    private Cursor getRecipeFromIngredients(List<String> ingredients, String[] columns) {
+    public Cursor getRecipeFromIngredients(List<String> ingredients) {
+
+        for (int i = 0; i < ingredients.size(); i ++) {
+
+        }
+
+        String rawQuery = ingredientSearchQuery(ingredients.get(0));
+
+        Cursor c = mDatabase.rawQuery(rawQuery, null);
+        c.moveToFirst();
+
+        return c;
+    }
+
+    private String ingredientSearchQuery(String ingredient) {
+
+        // Implied join - not using JOIN statement
+
+//        String rawQuery =
 //
-//    }
+//              "SELECT * FROM " + RecipeTable.FTS_VIRTUAL_TABLE
+//                      + ", " + JoinTable.SQL_TABLE
+//                      + ", " + IngredientTable.FTS_VIRTUAL_TABLE
+//
+//              + " WHERE " + RecipeTable.FTS_VIRTUAL_TABLE + "." + RecipeTable.COL_ID
+//                      + " = " + JoinTable.SQL_TABLE + "." + JoinTable.COL_RECIPE_ID
+
+//              + " AND " + JoinTable.SQL_TABLE + "." + JoinTable.COL_INGREDIENT_ID
+//                      + " = " + IngredientTable.FTS_VIRTUAL_TABLE + "." + IngredientTable.COL_ID
+//
+//              + " AND " + IngredientTable.FTS_VIRTUAL_TABLE + "." + IngredientTable.COL_NAME
+//                      + " MATCH " + "'" + ingredient + "'";
+
+        // JOIN Recipe table, Join table, and Ingredient table
+
+        String rawQuery =
+
+                "SELECT * FROM " + RecipeTable.FTS_VIRTUAL_TABLE
+
+                + " INNER JOIN " + JoinTable.SQL_TABLE
+                        + " ON " + RecipeTable.FTS_VIRTUAL_TABLE + "." + RecipeTable.COL_ID
+                        + " = " + JoinTable.SQL_TABLE + "." + JoinTable.COL_RECIPE_ID
+
+                + " INNER JOIN " + IngredientTable.FTS_VIRTUAL_TABLE
+                        + " ON " + JoinTable.SQL_TABLE + "." + JoinTable.COL_INGREDIENT_ID
+                        + " = " + IngredientTable.FTS_VIRTUAL_TABLE + "." + IngredientTable.COL_ID
+
+                + " AND " + IngredientTable.FTS_VIRTUAL_TABLE + "." + IngredientTable.COL_NAME
+                        + " MATCH " + "'" + ingredient + "'";
+
+        return rawQuery;
+    }
 
     public long getDataItemsCount() {
         return DatabaseUtils.queryNumEntries(mDatabase, RecipeTable.FTS_VIRTUAL_TABLE);

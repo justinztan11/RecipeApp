@@ -1,9 +1,9 @@
-package com.recipe.recipeapp.Database_Recipe_Ingredient_Join;
+package com.recipe.recipeapp.Database;
 
 public class JoinTable {
 
     // table name
-    public static final String SQL_TABLE = "JT";
+    public static final String SQL_TABLE = "JNT";
 
     //The columns in the table
     public static final String COL_RECIPE_ID = "recipeID";

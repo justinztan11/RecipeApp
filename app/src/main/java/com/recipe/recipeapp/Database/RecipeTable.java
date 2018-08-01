@@ -1,13 +1,13 @@
-package com.recipe.recipeapp.Database_Recipe;
+package com.recipe.recipeapp.Database;
 
 public class RecipeTable {
 
     // table name
-    public static final String FTS_VIRTUAL_TABLE = "FTS";
+    public static final String FTS_VIRTUAL_TABLE = "RPT";
 
     //The columns in the table
     public static final String COL_ID = "recipeID";
-    public static final String COL_NAME = "name";
+    public static final String COL_NAME = "recipeName";
     public static final String COL_DESCRIPTION = "description";
     public static final String COL_IMAGE = "image";
     public static final String COL_RATING = "rating";

@@ -18,8 +18,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.recipe.recipeapp.Database_Ingredient.IngredientDataSource;
-import com.recipe.recipeapp.Database_Recipe.RecipeDataSource;
+import com.recipe.recipeapp.Database.IngredientDataSource;
+import com.recipe.recipeapp.Database.RecipeDataSource;
 import com.recipe.recipeapp.Objects.Ingredient;
 import com.recipe.recipeapp.Objects.Recipe;
 import com.recipe.recipeapp.Sample_Data.IngredientData;
@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity
         if (numItems == 0) {
             mRecipeDataSource.loadData(recipeList);
         }
-
 
 
         // NAVIGATION DRAWER

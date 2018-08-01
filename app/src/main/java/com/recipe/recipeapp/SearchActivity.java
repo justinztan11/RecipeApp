@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,8 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
-import com.recipe.recipeapp.Database_Recipe.RecipeDataSource;
-import com.recipe.recipeapp.Database_Recipe.RecipeTable;
+import com.recipe.recipeapp.Database.RecipeDataSource;
 import com.recipe.recipeapp.Objects.Recipe;
 import com.recipe.recipeapp.Singleton.CategorySelectedSingleton;
 

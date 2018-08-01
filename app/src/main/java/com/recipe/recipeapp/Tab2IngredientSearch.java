@@ -4,14 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.sip.SipSession;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,15 +19,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.recipe.recipeapp.Adapter.IngredientRecyclerAdapter;
-import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
-import com.recipe.recipeapp.Database_Ingredient.IngredientDataSource;
-import com.recipe.recipeapp.Database_Ingredient.IngredientTable;
+import com.recipe.recipeapp.Database.IngredientDataSource;
 import com.recipe.recipeapp.Objects.Ingredient;
-import com.recipe.recipeapp.Objects.Recipe;
 import com.recipe.recipeapp.Singleton.IngredientsSelectedSingleton;
 
-import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.List;
 
 public class Tab2IngredientSearch extends Fragment {
