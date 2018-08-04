@@ -7,6 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
 import com.recipe.recipeapp.Database.RecipeDataSource;
@@ -21,6 +26,7 @@ public class IngredientSearchDisplay extends AppCompatActivity {
     private RecipeDataSource mRecipeDataSource;
     private RecyclerView recyclerView;
     private RecipeRecyclerAdapter adapter;
+    private Spinner sortSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,40 @@ public class IngredientSearchDisplay extends AppCompatActivity {
         List<Recipe> temp = mRecipeDataSource.getResultsList(cursor);
         adapter = new RecipeRecyclerAdapter(this, temp);
         recyclerView.setAdapter(adapter);
+
+        // SPINNER - SORTING
+        sortSpinner = findViewById(R.id.spinner_sort);
+        ArrayAdapter<String> sortListAdapter = new ArrayAdapter<>(this,
+                R.layout.custom_spinner_item,
+                getResources().getStringArray(R.array.sorting_list));
+        sortListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sortSpinner.setAdapter(sortListAdapter);
+
+        sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                switch (position) {
+                    case 0: // sort by alphabet
+                        adapter.sortRecipeAlpha();
+                        break;
+                    case 1: // sort by rating
+                        adapter.sortRecipeRating();
+                        break;
+                }
+                adapter.notifyDataSetChanged();
+
+
+                int matches = adapter.getItemCount();
+                TextView matchCount = findViewById(R.id.match_count);
+                matchCount.setText("Recipe App,  " + matches + " recipe(s)");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
     }

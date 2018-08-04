@@ -34,7 +34,7 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Spinner categorySpinner;
     private Spinner sortSpinner;
-    RecipeRecyclerAdapter adapter;
+    private RecipeRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
