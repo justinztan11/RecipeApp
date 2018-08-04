@@ -19,6 +19,9 @@ public final class IngredientData {
         addIngredient(new Ingredient("beef"));
         addIngredient(new Ingredient("bread"));
         addIngredient(new Ingredient("cheese"));
+        addIngredient(new Ingredient("blood"));
+        addIngredient(new Ingredient("garlic"));
+        addIngredient(new Ingredient("meat"));
 
     }
 

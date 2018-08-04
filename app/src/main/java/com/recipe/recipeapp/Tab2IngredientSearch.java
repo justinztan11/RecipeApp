@@ -156,8 +156,12 @@ public class Tab2IngredientSearch extends Fragment {
         fabSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), IngredientSearchDisplay.class);
-                startActivity(intent);
+                if (!IngredientsSelectedSingleton.getInstance().ingredientList.isEmpty()) {
+                    Intent intent = new Intent(getContext(), IngredientSearchDisplay.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), "Please add Ingredients", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

@@ -17,6 +17,8 @@ public final class RecipeData {
     // sample sets of ingredients for a specific recipe
     public static List<String> pizzaIngredients = new ArrayList<>();
     public static List<String> noodleIngredients = new ArrayList<>();
+    public static List<String> meatIngredients = new ArrayList<>();
+    public static List<String> breadIngredients = new ArrayList<>();
 
     // provides sample data
     static {
@@ -28,13 +30,23 @@ public final class RecipeData {
         noodleIngredients.add("noodle");
         noodleIngredients.add("salt");
         noodleIngredients.add("cheese");
+        noodleIngredients.add("meat");
+
+        meatIngredients.add("salt");
+        meatIngredients.add("meat");
+        meatIngredients.add("blood");
+
+        breadIngredients.add("salt");
+        breadIngredients.add("bread");
+        breadIngredients.add("garlic");
+
 
 
         addRecipe(new Recipe(null, "mac and cheese", "cheesy and maccy",
                 null, 2.5f, "noodle", noodleIngredients, null));
 
         addRecipe(new Recipe(null, "hot dog", "a sausage in a bun",
-                null, 1.3f, "meat", null, null));
+                null, 1.3f, "meat", meatIngredients, null));
 
         addRecipe(new Recipe(null, "pepperoni pizza", "why arent you a fatty",
                 null, 2.1f, "bread", pizzaIngredients, null));
@@ -46,7 +58,7 @@ public final class RecipeData {
                 null, 3.0f, "meat", null, null));
 
         addRecipe(new Recipe(null, "the dog lover", "don't worry, not dog",
-                null, 3.5f, "meat", null, null));
+                null, 3.5f, "meat", meatIngredients, null));
 
         addRecipe(new Recipe(null, "spaghetti", "with pasty tomatoes",
                 null, 0.6f, "noodle", noodleIngredients, null));
@@ -58,13 +70,13 @@ public final class RecipeData {
                 null, 4.0f, "noodle", noodleIngredients, null));
 
         addRecipe(new Recipe(null, "orange chicken", "authentic americanized chinese",
-                null, 2.0f, "meat", null, null));
+                null, 2.0f, "meat", meatIngredients, null));
 
         addRecipe(new Recipe(null, "fried chicken", "crispy goodness",
-                null, 5.0f, "meat", null, null));
+                null, 5.0f, "meat", meatIngredients, null));
 
         addRecipe(new Recipe(null, "garlic bread", "stale",
-                null, 0.1f, "bread", null, null));
+                null, 0.1f, "bread", breadIngredients, null));
 
     }
 

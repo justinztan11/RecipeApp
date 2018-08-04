@@ -101,7 +101,7 @@ public class RecipeDataSource {
 
         List<Recipe> tempList = new ArrayList<>();
 
-        if (cursor != null) {
+        if (cursor != null && cursor.getCount() != 0) {
             try {
                 // cursor starts at index 0, needs to execute below block only once before moving
                 do {
@@ -173,53 +173,75 @@ public class RecipeDataSource {
 
     public Cursor getRecipeFromIngredients(List<String> ingredients) {
 
-        for (int i = 0; i < ingredients.size(); i ++) {
+        int ingredientsListSize = ingredients.size();
+        String tempTableName;
 
+        // construct sql table for recipes found from each ingredient
+        for (int i = 0; i < ingredientsListSize; i++) {
+            tempTableName = "TEMP" + i;
+            mDatabase.execSQL("DROP TABLE IF EXISTS " + tempTableName);
+            mDatabase.execSQL(constructTable(tempTableName, ingredients.get(i)));
         }
 
-        String rawQuery = ingredientSearchQuery(ingredients.get(0));
+        String allTableNames = "";
+        String queryIntersection = "";
+        for (int i = 0; i < ingredientsListSize; i++) {
+            tempTableName = "TEMP" + i;
+            if (i != ingredientsListSize - 1) {
+                allTableNames += tempTableName + ", ";
+                queryIntersection += "TEMP0." + RecipeTable.COL_ID + " = " + tempTableName + "." + RecipeTable.COL_ID + " AND ";
+            } else {
+                allTableNames += tempTableName;
+                queryIntersection += "TEMP0." + RecipeTable.COL_ID + " = " + tempTableName + "." + RecipeTable.COL_ID;
+            }
+        }
+        
 
-        Cursor c = mDatabase.rawQuery(rawQuery, null);
+        String fullSearchQuery = "SELECT * FROM " + allTableNames + " WHERE " + queryIntersection;
+
+        Cursor c = mDatabase.rawQuery(fullSearchQuery, null);
         c.moveToFirst();
 
         return c;
     }
 
-    private String ingredientSearchQuery(String ingredient) {
+    private String constructTable(String tableName, String ingredient) {
 
         // Implied join - not using JOIN statement
 
 //        String rawQuery =
 //
-//              "SELECT * FROM " + RecipeTable.FTS_VIRTUAL_TABLE
-//                      + ", " + JoinTable.SQL_TABLE
-//                      + ", " + IngredientTable.FTS_VIRTUAL_TABLE
+//              "SELECT * FROM " + RecipeTable.FTS_VIRTUAL_TABLE +
+//                      ", " + JoinTable.SQL_TABLE +
+//                      ", " + IngredientTable.FTS_VIRTUAL_TABLE +
 //
-//              + " WHERE " + RecipeTable.FTS_VIRTUAL_TABLE + "." + RecipeTable.COL_ID
-//                      + " = " + JoinTable.SQL_TABLE + "." + JoinTable.COL_RECIPE_ID
-
-//              + " AND " + JoinTable.SQL_TABLE + "." + JoinTable.COL_INGREDIENT_ID
-//                      + " = " + IngredientTable.FTS_VIRTUAL_TABLE + "." + IngredientTable.COL_ID
+//              " WHERE " + RecipeTable.FTS_VIRTUAL_TABLE + "." + RecipeTable.COL_ID +
+//                      " = " + JoinTable.SQL_TABLE + "." + JoinTable.COL_RECIPE_ID +
 //
-//              + " AND " + IngredientTable.FTS_VIRTUAL_TABLE + "." + IngredientTable.COL_NAME
-//                      + " MATCH " + "'" + ingredient + "'";
+//              " AND " + JoinTable.SQL_TABLE + "." + JoinTable.COL_INGREDIENT_ID +
+//                      " = " + IngredientTable.FTS_VIRTUAL_TABLE + "." + IngredientTable.COL_ID +
+//
+//              " AND " + IngredientTable.FTS_VIRTUAL_TABLE + "." + IngredientTable.COL_NAME +
+//                      " MATCH " + "'" + ingredient + "'";
 
         // JOIN Recipe table, Join table, and Ingredient table
 
         String rawQuery =
 
-                "SELECT * FROM " + RecipeTable.FTS_VIRTUAL_TABLE
+                "CREATE TABLE " + tableName + " AS" +
 
-                + " INNER JOIN " + JoinTable.SQL_TABLE
-                        + " ON " + RecipeTable.FTS_VIRTUAL_TABLE + "." + RecipeTable.COL_ID
-                        + " = " + JoinTable.SQL_TABLE + "." + JoinTable.COL_RECIPE_ID
+                        " SELECT * FROM " + RecipeTable.FTS_VIRTUAL_TABLE +
 
-                + " INNER JOIN " + IngredientTable.FTS_VIRTUAL_TABLE
-                        + " ON " + JoinTable.SQL_TABLE + "." + JoinTable.COL_INGREDIENT_ID
-                        + " = " + IngredientTable.FTS_VIRTUAL_TABLE + "." + IngredientTable.COL_ID
+                        " INNER JOIN " + JoinTable.SQL_TABLE +
+                        " ON " + RecipeTable.FTS_VIRTUAL_TABLE + "." + RecipeTable.COL_ID +
+                        " = " + JoinTable.SQL_TABLE + "." + JoinTable.COL_RECIPE_ID +
 
-                + " AND " + IngredientTable.FTS_VIRTUAL_TABLE + "." + IngredientTable.COL_NAME
-                        + " MATCH " + "'" + ingredient + "'";
+                        " INNER JOIN " + IngredientTable.FTS_VIRTUAL_TABLE +
+                        " ON " + JoinTable.SQL_TABLE + "." + JoinTable.COL_INGREDIENT_ID +
+                        " = " + IngredientTable.FTS_VIRTUAL_TABLE + "." + IngredientTable.COL_ID +
+
+                        " AND " + IngredientTable.FTS_VIRTUAL_TABLE + "." + IngredientTable.COL_NAME +
+                        " MATCH " + "'" + ingredient + "'";
 
         return rawQuery;
     }
