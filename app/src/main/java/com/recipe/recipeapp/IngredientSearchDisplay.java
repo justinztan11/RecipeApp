@@ -10,13 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.recipe.recipeapp.Adapter.RecipeRecyclerAdapter;
 import com.recipe.recipeapp.Database.RecipeDataSource;
 import com.recipe.recipeapp.Objects.Recipe;
-import com.recipe.recipeapp.Sample_Data.RecipeData;
 import com.recipe.recipeapp.Singleton.IngredientsSelectedSingleton;
 
 import java.util.List;
@@ -27,6 +27,7 @@ public class IngredientSearchDisplay extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecipeRecyclerAdapter adapter;
     private Spinner sortSpinner;
+    private ImageView clear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +97,6 @@ public class IngredientSearchDisplay extends AppCompatActivity {
 
             }
         });
-
 
     }
 

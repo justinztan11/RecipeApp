@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class IngredientRecyclerAdapter extends RecyclerView.Adapter<IngredientRe
         //all elements of one list entry
         public TextView text;
         public CardView card;
+        public ImageView clear;
 
         //gets all elements of entry and stores them in instance vars
 
@@ -33,6 +35,7 @@ public class IngredientRecyclerAdapter extends RecyclerView.Adapter<IngredientRe
             super(v);
             text = v.findViewById(R.id.ingredient_name);
             card = v.findViewById(R.id.ingredient_card_view);
+            clear = v.findViewById(R.id.clear);
         }
     }
 
@@ -57,9 +60,17 @@ public class IngredientRecyclerAdapter extends RecyclerView.Adapter<IngredientRe
      *  Writes data onto views
      */
     @Override
-    public void onBindViewHolder(IngredientRecyclerAdapter.ViewHolder holder, int position) {
-
+    public void onBindViewHolder(IngredientRecyclerAdapter.ViewHolder holder, final int position) {
         holder.text.setText(ingredientList.get(position));
+
+        holder.clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ingredientList.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+
     }
 
     /*
